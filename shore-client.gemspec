@@ -35,4 +35,5 @@ pushes.'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'overcommit'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'pry-byebug'
 end
