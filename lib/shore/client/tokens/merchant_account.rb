@@ -60,7 +60,7 @@ module Shore
         def attributes
           Hash[%i(id type name roles).map do |attr_name|
             [attr_name, public_send(attr_name)]
-          end]
+          end].with_indifferent_access
         end
 
         def roles=(values)

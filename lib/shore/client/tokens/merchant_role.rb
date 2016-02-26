@@ -27,7 +27,7 @@ module Shore
         def attributes
           Hash[%i(id slug name role type).map do |attr_name|
             [attr_name, public_send(attr_name)]
-          end]
+          end].with_indifferent_access
         end
       end
     end

@@ -24,8 +24,10 @@ $ gem install shore-client
 
 ## Usage
 
+```ruby
 require 'shore/client'
 Shore::Client::Tokens::AccessToken.parse_auth_header(auth_header, secret)
+```
 
 ## Development
 
@@ -38,7 +40,13 @@ bin/setup
 * Run the tests
 
 ```sh
-bin/spec
+bin/rspec
+```
+
+To generate SimpleCov stats by run
+
+```sh
+COVERAGE=true bin/rspec
 ```
 
 * For REPL you can use

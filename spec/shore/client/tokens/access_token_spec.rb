@@ -5,25 +5,25 @@ describe Shore::Client::Tokens::AccessToken do
   let(:secret) { 'secret' }
   let(:member_role) do
     {
-      'id' => '74eb402b-e159-4027-9363-60772e6e8930',
-      'type' => 'merchants',
-      'slug' => 'achsel-alex',
-      'name' => 'Achsel Alex',
-      'role' => 'member'
-    }
+      id: '74eb402b-e159-4027-9363-60772e6e8930',
+      type: 'merchants',
+      slug: 'achsel-alex',
+      name: 'Achsel Alex',
+      role: 'member'
+    }.with_indifferent_access
   end
   let(:valid_jwt_payload) do
     {
-      'exp' => exp.to_i,
-      'data' => {
-        'id' => '226fc766-3cf0-4d18-a988-5f8235f17edb',
-        'type' => 'merchant-accounts',
-        'attributes' => {
-          'name' => 'Bob Barker',
-          'roles' => [member_role]
+      exp: exp.to_i,
+      data: {
+        id: '226fc766-3cf0-4d18-a988-5f8235f17edb',
+        type: 'merchant-accounts',
+        attributes: {
+          name: 'Bob Barker',
+          roles: [member_role]
         }
       }
-    }
+    }.with_indifferent_access
   end
 
   describe '.parse_auth_header' do
@@ -35,6 +35,18 @@ describe Shore::Client::Tokens::AccessToken do
       expect(
         described_class.parse_auth_header(valid_auth_header, secret))
         .to be_an_instance_of(described_class)
+    end
+
+    context 'when exp set with env variable' do
+      it 'fails' do
+        ENV['JWT_TOKEN_EXPIRE_IN_MINUTES'] = '60'
+        expect do
+          auth_header = "Bearer #{JWT.encode(valid_jwt_payload.except('exp'),
+                                             secret,
+                                             'HS256')}"
+          described_class.parse_auth_header(auth_header, secret)
+        end.not_to raise_error(Shore::Client::Tokens::InvalidTokenError)
+      end
     end
 
     context 'when expiration time has past' do
