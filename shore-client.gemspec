@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'shore-client'
   spec.version       = Shore::Client::VERSION
   spec.authors       = ['Konstantin Delchev']
-  spec.email         = %w(konstantin.delchev@shore.com)
+  spec.email         = %w(konstantin.delchev@shore.com tech@shore.com)
 
   spec.summary       = 'Shore Ruby Client'
-  spec.description   = 'Client gem to generate JWT tokens'
+  spec.description   = 'Ruby client gem that provides access to Shore APIs'
   spec.homepage      = 'https://github.com/shore-gmbh/shore-ruby-client'
   spec.license       = 'MIT'
 
@@ -30,10 +30,13 @@ pushes.'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_runtime_dependency 'jwt', '~> 1.5.3'
+  spec.add_runtime_dependency 'activesupport', '>= 3'
+
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'overcommit'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'pry-byebug'
+  spec.add_development_dependency 'rspec', '~> 3.4.0'
+  spec.add_development_dependency 'overcommit', '~> 0.29.1'
+  spec.add_development_dependency 'rubocop', '~> 0.35.1'
+  spec.add_development_dependency 'pry-byebug', '~> 3.3.0'
 end

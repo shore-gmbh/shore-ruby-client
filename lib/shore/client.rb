@@ -1,0 +1,5 @@
+require 'active_support/all'
+require_relative 'client/tokens/access_token'
+require_relative 'client/tokens/invalid_token_error'
+require_relative 'client/tokens/merchant_account'
+require_relative 'client/tokens/merchant_role'
