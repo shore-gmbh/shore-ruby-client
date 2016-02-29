@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'shore/client/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'shore-ruby-client'
+  spec.name          = 'shore-client'
   spec.version       = Shore::Client::VERSION
   spec.authors       = ['Konstantin Delchev']
   spec.email         = %w(konstantin.delchev@shore.com tech@shore.com)

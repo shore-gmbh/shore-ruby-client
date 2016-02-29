@@ -25,7 +25,7 @@ $ gem install shore-client
 ## Usage
 
 ```ruby
-require 'shore_client'
+require 'shore-client'
 Shore::Client::Tokens::AccessToken.parse_auth_header(auth_header, secret)
 ```
 
