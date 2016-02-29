@@ -1,3 +1,7 @@
+require_relative 'invalid_token_error'
+require_relative 'merchant_account'
+require_relative 'merchant_role'
+
 module Shore
   module Client
     module Tokens

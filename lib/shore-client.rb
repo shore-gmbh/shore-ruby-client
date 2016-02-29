@@ -1,5 +1,1 @@
-require 'active_support/all'
-require_relative 'shore/client/tokens/access_token'
-require_relative 'shore/client/tokens/invalid_token_error'
-require_relative 'shore/client/tokens/merchant_account'
-require_relative 'shore/client/tokens/merchant_role'
+require 'shore/client'
