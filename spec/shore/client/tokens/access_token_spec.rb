@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-describe Shore::Client::Tokens::AccessToken do
+RSpec.describe Shore::Client::Tokens::AccessToken do
   let(:exp) { (Time.now.utc + 2.days).beginning_of_day }
   let(:secret) { 'secret' }
   let(:member_role) do
@@ -45,7 +43,7 @@ describe Shore::Client::Tokens::AccessToken do
                                              secret,
                                              'HS256')}"
           described_class.parse_auth_header(auth_header, secret)
-        end.not_to raise_error(Shore::Client::Tokens::InvalidTokenError)
+        end.not_to raise_error
       end
     end
 

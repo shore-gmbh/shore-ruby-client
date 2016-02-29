@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-describe Shore::Client::Tokens::MerchantAccount do
+RSpec.describe Shore::Client::Tokens::MerchantAccount do
   let(:merchant_account_attributes) do
     {
       'id' => '226fc766-3cf0-4d18-a988-5f8235f17edb',
@@ -20,9 +18,10 @@ describe Shore::Client::Tokens::MerchantAccount do
     }.with_indifferent_access
   end
 
-  describe '.as_json'
-  it 'creates merchant role instance' do
-    merchant_account = described_class.new(merchant_account_attributes)
-    expect(merchant_account.as_json).to eq(merchant_account_attributes)
+  describe '.as_json' do
+    it 'creates merchant role instance' do
+      merchant_account = described_class.new(merchant_account_attributes)
+      expect(merchant_account.as_json).to eq(merchant_account_attributes)
+    end
   end
 end

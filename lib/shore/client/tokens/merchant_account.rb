@@ -1,11 +1,10 @@
-# frozen_string_literal: true
+require_relative 'merchant_role'
+
 module Shore
   module Client
     module Tokens
       class MerchantAccount # :nodoc:
-        require_relative 'merchant_role'
-
-        TYPE = 'merchant-accounts'
+        TYPE = 'merchant-accounts'.freeze
 
         attr_accessor :id
         attr_accessor :name

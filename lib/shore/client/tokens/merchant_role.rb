@@ -1,9 +1,8 @@
-# frozen_string_literal: true
 module Shore
   module Client
     module Tokens
       class MerchantRole # :nodoc:
-        TYPE = 'merchants'
+        TYPE = 'merchants'.freeze
 
         attr_accessor :id
         attr_accessor :slug

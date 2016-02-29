@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-describe Shore::Client::Tokens::MerchantRole do
+RSpec.describe Shore::Client::Tokens::MerchantRole do
   let(:merchant_role_attributes) do
     {
       id: '74eb402b-e159-4027-9363-60772e6e8930',

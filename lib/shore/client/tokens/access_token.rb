@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module Shore
   module Client
     module Tokens
@@ -25,7 +24,7 @@ module Shore
       class AccessToken
         require 'jwt'
 
-        JWT_ALGORITHM = 'HS256'
+        JWT_ALGORITHM = 'HS256'.freeze
         private_constant :JWT_ALGORITHM
 
         attr_accessor :exp
