@@ -24,6 +24,20 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
     }.with_indifferent_access
   end
 
+  describe '.initialize' do
+    it 'ignores :exp_minutes_from_now if :exp set' do
+      expect(described_class.new(exp: exp, exp_minutes_from_now: '1').exp)
+        .to eq(exp)
+    end
+
+    it 'sets exp if :exp not set, but :exp_minutes_from_now is' do
+      Timecop.freeze do
+        expect(described_class.new(exp_minutes_from_now: '13').exp)
+          .to eq(Time.now + 13.minutes)
+      end
+    end
+  end
+
   describe '.parse_auth_header' do
     let(:valid_auth_header) do
       "Bearer #{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
@@ -33,18 +47,6 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       expect(
         described_class.parse_auth_header(valid_auth_header, secret))
         .to be_an_instance_of(described_class)
-    end
-
-    context 'when exp set with env variable' do
-      it 'fails' do
-        ENV['JWT_TOKEN_EXPIRE_IN_MINUTES'] = '60'
-        expect do
-          auth_header = "Bearer #{JWT.encode(valid_jwt_payload.except('exp'),
-                                             secret,
-                                             'HS256')}"
-          described_class.parse_auth_header(auth_header, secret)
-        end.not_to raise_error
-      end
     end
 
     context 'when expiration time has past' do
@@ -86,7 +88,7 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
   end
 
   describe '#to_jwt' do
-    context 'with valid exp' do
+    context 'without exp' do
       subject(:jwt) do
         described_class.new(account: valid_jwt_payload['data']).to_jwt(secret)
       end
@@ -96,25 +98,28 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       end
     end
 
-    context 'without exp' do
+    context 'with exp' do
       subject(:jwt) do
         described_class.new(account: valid_jwt_payload['data'], exp: exp)
           .to_jwt(secret)
       end
+      let(:header) { JSON(Base64.decode64(jwt.split('.')[0])) }
+      let(:payload) { JSON(Base64.decode64(jwt.split('.')[1])) }
 
       it 'creates jwt' do
         expect(jwt.split('.').size).to eq(3)
       end
 
       it 'parses jwt header' do
-        header = jwt.split('.')[0]
-        expect(JSON(Base64.decode64(header)))
-          .to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(header).to eq('typ' => 'JWT', 'alg' => 'HS256')
       end
 
       it 'parses jwt payload' do
-        payload = jwt.split('.')[1]
-        expect(JSON(Base64.decode64(payload))).to eq(valid_jwt_payload)
+        expect(payload).to eq(valid_jwt_payload)
+      end
+
+      it 'sets the expiration' do
+        expect(payload['exp']).to eq(exp.to_i)
       end
     end
 

@@ -95,8 +95,8 @@ module Shore
         def init_exp(options)
           @exp = if options.key?(:exp)
                    options[:exp]
-                 elsif ENV['JWT_TOKEN_EXPIRE_IN_MINUTES'].present?
-                   Time.now + ENV['JWT_TOKEN_EXPIRE_IN_MINUTES'].to_i.minutes
+                 elsif (minutes = options[:exp_minutes_from_now]).present?
+                   Time.now + minutes.to_i.minutes
                  end
         end
       end
