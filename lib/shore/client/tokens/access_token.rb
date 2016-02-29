@@ -1,3 +1,4 @@
+require 'jwt'
 require_relative 'invalid_token_error'
 require_relative 'merchant_account'
 require_relative 'merchant_role'
@@ -26,8 +27,6 @@ module Shore
       #   }
       # }
       class AccessToken
-        require 'jwt'
-
         JWT_ALGORITHM = 'HS256'.freeze
         private_constant :JWT_ALGORITHM
 
@@ -42,22 +41,15 @@ module Shore
         # @raise InvalidTokenError if the auth_header does not contain a valid
         #   token
         # @raise TokenExpiredError if the token is valid, but has expired
-        # rubocop:disable all
         def self.parse_auth_header(auth_header, secret)
           fail InvalidTokenError,
                'No authorization header' if auth_header.blank?
-          token = auth_header.split(' ').last
-          fail InvalidTokenError,
-               'Wrong authorization header format' if token.blank?
-          decoded_token = JWT.decode(token, secret, true,
-                                     algorithm: JWT_ALGORITHM)
-          parse_jwt_payload(decoded_token.first)
+          _parse_auth_header(auth_header, secret)
         rescue JWT::ExpiredSignature => error
           raise InvalidTokenError, error.message, error.backtrace
         rescue JWT::DecodeError => error
           raise InvalidTokenError, error.message, error.backtrace
         end
-        # rubocop:enable all
 
         # @param jwt_payload [Hash]
         def self.parse_jwt_payload(jwt_payload)
@@ -67,6 +59,17 @@ module Shore
 
           new(exp: exp, account: account)
         end
+
+        # @see parse_auth_header
+        def self._parse_auth_header(auth_header, secret)
+          token = auth_header.split(' ').last
+          fail InvalidTokenError,
+               'Wrong authorization header format' if token.blank?
+          decoded_token = JWT.decode(token, secret, true,
+                                     algorithm: JWT_ALGORITHM)
+          parse_jwt_payload(decoded_token.first)
+        end
+        private_class_method :_parse_auth_header
 
         # @param options [Hash]
         # @option options [String] :exp
