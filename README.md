@@ -70,6 +70,26 @@ gem_push=no bin/rake release
 This will create a git tag for the version, push git commits and tags, without
 pushing the gem to RubyGems.
 
+## Use RSpec helpers in your project
+
+To use defined jwt payload, member role and merchant account helpers in your
+project, include the gem in `spec_helper.rb` like this:
+
+```ruby
+dir = Gem::Specification.find_by_name('shore-client').gem_dir
+files = Dir.glob(File.join(dir, 'spec/support/*.rb'))
+files.each { |f| require(f) }
+```
+
+and add this in RSpec configuration
+
+```ruby
+RSpec.configure do |config|
+  config.include Shore::Client::RSpec::Helpers
+end
+```
+
+For information how to use the helpers see `spec/shore/client/tokens`
 
 ## Contributing
 
