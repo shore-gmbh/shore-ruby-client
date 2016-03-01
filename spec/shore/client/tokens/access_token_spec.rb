@@ -132,22 +132,4 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       end
     end
   end
-
-  describe '#expired?' do
-    context 'when valid exp is set' do
-      let(:access_token) { described_class.new(exp: exp) }
-
-      it 'returns false' do
-        expect(access_token.expired?).to be_falsey
-      end
-    end
-
-    context 'when exp is not set' do
-      let(:access_token) { described_class.new }
-
-      it 'returns true' do
-        expect(access_token.expired?).to be_truthy
-      end
-    end
-  end
 end
