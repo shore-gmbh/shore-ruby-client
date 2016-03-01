@@ -67,6 +67,13 @@ module Shore
           @roles = values
         end
 
+        def role(merchant_id_or_slug)
+          roles.detect do |merchant_role|
+            merchant_role.id == merchant_id_or_slug ||
+              merchant_role.slug == merchant_id_or_slug
+          end.try(:role)
+        end
+
         # @example json
         #   {
         #     "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
