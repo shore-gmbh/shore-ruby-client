@@ -90,6 +90,10 @@ module Shore
           JWT.encode(payload, secret, JWT_ALGORITHM)
         end
 
+        def expired?
+          exp ? exp.to_i < Time.current.to_i : true
+        end
+
         private
 
         def init_exp(options)
