@@ -28,19 +28,21 @@ RSpec.describe Shore::Client::Tokens::MerchantAccount do
     end
   end
 
-  describe '.role' do
-    it 'returns the role name by id' do
-      merchant_account = described_class.new(merchant_account_attributes)
-      expect(merchant_account.role(role_id))
-        .to eq(role_name)
+  describe '#role' do
+    context 'with id' do
+      it 'returns the role name' do
+        merchant_account = described_class.new(merchant_account_attributes)
+        expect(merchant_account.role(role_id))
+          .to eq(role_name)
+      end
     end
-  end
 
-  describe '.role' do
-    it 'returns the role name by slug' do
-      merchant_account = described_class.new(merchant_account_attributes)
-      expect(merchant_account.role(role_slug))
-        .to eq(role_name)
+    context 'with slug' do
+      it 'returns the role name' do
+        merchant_account = described_class.new(merchant_account_attributes)
+        expect(merchant_account.role(role_slug))
+          .to eq(role_name)
+      end
     end
   end
 end
