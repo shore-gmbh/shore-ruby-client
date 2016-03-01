@@ -1,13 +1,5 @@
 RSpec.describe Shore::Client::Tokens::MerchantRole do
-  let(:merchant_role_attributes) do
-    {
-      id: '74eb402b-e159-4027-9363-60772e6e8930',
-      type: 'merchants',
-      slug: 'achsel-alex',
-      name: 'Achsel Alex',
-      role: 'member'
-    }.with_indifferent_access
-  end
+  let(:merchant_role_attributes) { merchant_role }
 
   it 'creates merchant role instance' do
     merchant_role = described_class.new(merchant_role_attributes)

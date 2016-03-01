@@ -2,23 +2,9 @@ RSpec.describe Shore::Client::Tokens::MerchantAccount do
   let(:role_id) { '74eb402b-e159-4027-9363-60772e6e8930' }
   let(:role_slug) { 'achsel-alex' }
   let(:role_name) { 'member' }
+  let(:roles) { [merchant_role(id: role_id, slug: role_slug, role: role_name)] }
   let(:merchant_account_attributes) do
-    {
-      'id' => '226fc766-3cf0-4d18-a988-5f8235f17edb',
-      'type' => 'merchant-accounts',
-      'attributes' => {
-        'name' => 'Bob Barker',
-        'roles' => [
-          {
-            'id' => role_id,
-            'type' => 'merchants',
-            'slug' => role_slug,
-            'name' => 'Achsel Alex',
-            'role' => role_name
-          }
-        ]
-      }
-    }.with_indifferent_access
+    merchant_account(attributes: { roles: roles })
   end
 
   describe '.as_json' do

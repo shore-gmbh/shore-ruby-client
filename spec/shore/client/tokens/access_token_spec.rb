@@ -1,28 +1,8 @@
 RSpec.describe Shore::Client::Tokens::AccessToken do
   let(:exp) { (Time.now.utc + 2.days).beginning_of_day }
   let(:secret) { 'secret' }
-  let(:member_role) do
-    {
-      id: '74eb402b-e159-4027-9363-60772e6e8930',
-      type: 'merchants',
-      slug: 'achsel-alex',
-      name: 'Achsel Alex',
-      role: 'member'
-    }.with_indifferent_access
-  end
-  let(:valid_jwt_payload) do
-    {
-      exp: exp.to_i,
-      data: {
-        id: '226fc766-3cf0-4d18-a988-5f8235f17edb',
-        type: 'merchant-accounts',
-        attributes: {
-          name: 'Bob Barker',
-          roles: [member_role]
-        }
-      }
-    }.with_indifferent_access
-  end
+  let(:member_role) { merchant_role }
+  let(:valid_jwt_payload) { jwt_payload(exp: exp, member_roles: [member_role]) }
 
   describe '.initialize' do
     it 'ignores :exp_minutes_from_now if :exp set' do
