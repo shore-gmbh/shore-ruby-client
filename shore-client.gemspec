@@ -32,6 +32,11 @@ pushes.'
 
   spec.add_runtime_dependency 'jwt', '~> 1'
   spec.add_runtime_dependency 'activesupport', '>= 3'
+  # Clients for http://jsonapi.org/ compatible API's can mostly be generated
+  # at runtime.
+  # Note: this library is undergoing active development. Please update often!
+  # https://github.com/chingor13/json_api_client
+  spec.add_runtime_dependency 'json_api_client', '>= 1.1.1'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
