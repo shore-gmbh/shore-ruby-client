@@ -2,6 +2,8 @@
 
 Shore client to authorize API calls using [JWT](https://jwt.io)
 
+[![Build Status](https://travis-ci.org/shore-gmbh/shore-ruby-client.svg?branch=master)](https://travis-ci.org/shore-gmbh/shore-ruby-client)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -102,4 +104,3 @@ adhere to the [Contributor Covenant](http://contributor-covenant.org) code of co
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
