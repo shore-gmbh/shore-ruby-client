@@ -4,6 +4,7 @@ Shore client to authorize API calls using [JWT](https://jwt.io)
 
 [![Build Status](https://travis-ci.org/shore-gmbh/shore-ruby-client.svg?branch=master)](https://travis-ci.org/shore-gmbh/shore-ruby-client)
 [![Coverage Status](https://coveralls.io/repos/github/shore-gmbh/shore-ruby-client/badge.svg?branch=master)](https://coveralls.io/github/shore-gmbh/shore-ruby-client?branch=master)
+
 ## Installation
 
 Add this line to your application's Gemfile:
