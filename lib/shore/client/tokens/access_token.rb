@@ -42,8 +42,10 @@ module Shore
         #   token
         # @raise TokenExpiredError if the token is valid, but has expired
         def self.parse_auth_header(auth_header, secret)
-          fail InvalidTokenError,
-               'No authorization header' if auth_header.blank?
+          if auth_header.blank?
+            fail InvalidTokenError,
+                 'The required header, Authorization, is missing.'
+          end
           _parse_auth_header(auth_header, secret)
         rescue JWT::ExpiredSignature => error
           raise InvalidTokenError, error.message, error.backtrace
@@ -62,9 +64,10 @@ module Shore
 
         # @see parse_auth_header
         def self._parse_auth_header(auth_header, secret)
-          token = auth_header.split(' ').last
-          fail InvalidTokenError,
-               'Wrong authorization header format' if token.blank?
+          if (token = auth_header.split(' ').last).blank?
+            fail InvalidTokenError,
+                 'The required header, Authorization, is not a valid JWT token.'
+          end
           decoded_token = JWT.decode(token, secret, true,
                                      algorithm: JWT_ALGORITHM)
           parse_jwt_payload(decoded_token.first)
