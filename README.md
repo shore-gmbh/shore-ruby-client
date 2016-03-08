@@ -4,6 +4,8 @@ Shore client to authorize API calls using [JWT](https://jwt.io)
 
 [![Build Status](https://travis-ci.org/shore-gmbh/shore-ruby-client.svg?branch=master)](https://travis-ci.org/shore-gmbh/shore-ruby-client)
 [![Coverage Status](https://coveralls.io/repos/github/shore-gmbh/shore-ruby-client/badge.svg?branch=master)](https://coveralls.io/github/shore-gmbh/shore-ruby-client?branch=master)
+[![Code Climate](https://codeclimate.com/repos/56ddbecf41003f0085005e15/badges/242acc5710bd574a24ea/gpa.svg)](https://codeclimate.com/repos/56ddbecf41003f0085005e15/feed)
+[![Issue Count](https://codeclimate.com/repos/56ddbecf41003f0085005e15/badges/242acc5710bd574a24ea/issue_count.svg)](https://codeclimate.com/repos/56ddbecf41003f0085005e15/feed)
 
 ## Installation
 
