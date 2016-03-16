@@ -13,17 +13,16 @@ RSpec.describe ShoreClientMiddleware do
     described_class.new(->(env) { env })
   end
 
-  let(:token) { 'secret token' }
-
-  it 'does not raise error if called from block' do
+  it 'returns headers if called from block' do
+    token = 'abcde.fghi.jklmno'
     Shore::Client.with_access_token(token) do
       expect(Shore::Client.access_token).to eq token
-      expect(auth_header(perform)).to eq token
+      expect(auth_header(perform)).to eq "Bearer #{token}"
     end
   end
 
-  it 'raises error if called outside the block' do
-    expect { auth_header(perform) }
-      .to raise_error(Shore::Client::Tokens::InvalidTokenError)
+  it 'does not add headers' do
+    expect(Shore::Client.access_token).to be_nil
+    expect(auth_header(perform)).to be_nil
   end
 end
