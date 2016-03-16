@@ -12,9 +12,9 @@ end
 
 class ShoreClientMiddleware < Faraday::Middleware # :nodoc:
   def call(env)
-    env[:request_headers]['Authorization'] = Shore::Client.access_token
-    fail Shore::Client::Tokens::InvalidTokenError,
-         "Token can't be empty" unless env[:request_headers]['Authorization']
+    if (token = Shore::Client.access_token)
+      env[:request_headers]['Authorization'] = "Bearer #{token}"
+    end
     @app.call(env)
   end
 end
