@@ -46,4 +46,5 @@ pushes.'
   spec.add_development_dependency 'pry-byebug', '~> 3.3.0'
   spec.add_development_dependency 'simplecov', '~> 0.11.1'
   spec.add_development_dependency 'timecop'
+  spec.add_development_dependency 'webmock'
 end
