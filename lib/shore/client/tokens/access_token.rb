@@ -85,7 +85,7 @@ module Shore
         # @param [String] the value of the Authorization request header
         def self.extract_token(auth_header)
           auth_header.to_s.match(
-            /^(?:Bearer\s+|Token\s+token=)
+            /^(?:Bearer\s+)
             ([A-Za-z0-9\-_=]+\.[A-Za-z0-9\-_=]+\.[A-Za-z0-9\-_=]+)$/x
           ).try(:captures).try(:first)
         end
