@@ -118,24 +118,24 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       "Bearer #{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
     end
 
-    let(:valid_token_auth_header_format) do
+    let(:invalid_token_auth_header_format) do
       "Token token=#{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
     end
 
-    let(:invalid_auth_header_format) { 'Bearer blahblahblahblah' }
+    let(:invalid_bearer_auth_header_format) { 'Bearer blahblahblahblah' }
 
     it "returns 'true' for valid Bearer format" do
       expect(described_class.valid_format?(valid_bearer_auth_header_format))
         .to be_truthy
     end
 
-    it "returns 'true' for valid 'Token token=' format" do
-      expect(described_class.valid_format?(valid_token_auth_header_format))
-        .to be_truthy
+    it "returns 'false' for 'Token token=' format" do
+      expect(described_class.valid_format?(invalid_token_auth_header_format))
+        .to be_falsey
     end
 
     it "returns 'false' for invalid token format" do
-      expect(described_class.valid_format?(invalid_auth_header_format))
+      expect(described_class.valid_format?(invalid_bearer_auth_header_format))
         .to be_falsey
     end
   end
