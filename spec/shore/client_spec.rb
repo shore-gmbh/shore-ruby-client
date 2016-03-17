@@ -1,12 +1,11 @@
 RSpec.describe Shore::Client do
   describe '.with_access_token' do
     let(:id) { SecureRandom.uuid }
-    let(:token) { 'abcde.fghij.jlmnoi' }
-    let(:auth_header) { "Bearer #{token}" }
+    let(:auth_header) { 'Bearer abcde.fghij.jlmnoi' }
 
     it 'returns message' do
       stub_success_request(id, auth_header)
-      described_class.with_access_token(token) do
+      described_class.with_authorization(auth_header) do
         message = Shore::Client::Messaging::V1::Message.find(id).first
         expect(message.id).to eq id
         expect(message.type).to eq 'messages'
@@ -22,7 +21,7 @@ RSpec.describe Shore::Client do
 
     it 'raises error if not found' do
       stub_not_found_request(id, auth_header)
-      described_class.with_access_token(token) do
+      described_class.with_authorization(auth_header) do
         expect { Shore::Client::Messaging::V1::Message.find(id).first }
           .to raise_error JsonApiClient::Errors::NotFound
       end

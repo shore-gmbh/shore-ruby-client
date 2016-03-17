@@ -14,15 +14,15 @@ RSpec.describe ShoreClientMiddleware do
   end
 
   it 'returns headers if called from block' do
-    token = 'abcde.fghi.jklmno'
-    Shore::Client.with_access_token(token) do
-      expect(Shore::Client.access_token).to eq token
-      expect(auth_header(perform)).to eq "Bearer #{token}"
+    auth_header = 'Bearer abcde.fghi.jklmno'
+    Shore::Client.with_authorization(auth_header) do
+      expect(Shore::Client.authorization).to eq auth_header
+      expect(auth_header(perform)).to eq auth_header
     end
   end
 
   it 'does not add headers' do
-    expect(Shore::Client.access_token).to be_nil
+    expect(Shore::Client.authorization).to be_nil
     expect(auth_header(perform)).to be_nil
   end
 end

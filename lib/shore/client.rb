@@ -5,22 +5,23 @@ require_relative 'client/messaging'
 
 module Shore
   module Client # :nodoc:
-    def with_access_token(access_token)
-      self.access_token = access_token
+    def with_authorization(authorization)
+      self.authorization = authorization
       yield
     ensure
-      self.access_token = nil
+      self.authorization = nil
     end
-    module_function :with_access_token
+    module_function :with_authorization
 
-    def access_token=(value)
-      Thread.current[:shore_client_current_access_token] = value
+    # @see with_authorization
+    def authorization=(value)
+      Thread.current[:shore_client_current_authorization] = value
     end
-    module_function :access_token=
+    module_function :authorization=
 
-    def access_token
-      Thread.current[:shore_client_current_access_token]
+    def authorization
+      Thread.current[:shore_client_current_authorization]
     end
-    module_function :access_token
+    module_function :authorization
   end
 end
