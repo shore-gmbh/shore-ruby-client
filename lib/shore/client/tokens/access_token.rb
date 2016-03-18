@@ -78,16 +78,12 @@ module Shore
           extract_token(auth_header).present?
         end
 
-        # @note The 'Token JWT token' is not actually valid, but we might get it
-        #   from the mobile clients so we have to handle it.
         # @example Bearer JWT token
         #   Bearer asdjsdli23.laskjfasldfjlk.asd32423
-        # @example Token JWT token
-        #   Token token=asdjsdli23.laskjfasldfjlk.asd32423
         # @param [String] the value of the Authorization request header
         def self.extract_token(auth_header)
           auth_header.to_s.match(
-            /^(?:Bearer\s+|Token\s+token=)
+            /^(?:Bearer\s+)
             ([A-Za-z0-9\-_=]+\.[A-Za-z0-9\-_=]+\.[A-Za-z0-9\-_=]+)$/x
           ).try(:captures).try(:first)
         end
