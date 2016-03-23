@@ -38,5 +38,5 @@ def correct_response(message_id)
 end
 
 def messaging_url(message_id)
-  "#{Shore::Client::Messaging.base_uri(:v1)}/messages/#{message_id}"
+  "#{Shore::Client::Services.url_for(:messaging, :v1)}/messages/#{message_id}"
 end

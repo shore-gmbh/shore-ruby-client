@@ -1,7 +1,6 @@
 require 'jwt'
 require_relative 'invalid_token_error'
-require_relative 'merchant_account'
-require_relative 'merchant_role'
+require_relative 'v1/merchant_account'
 
 module Shore
   module Client
@@ -9,29 +8,21 @@ module Shore
       # @example JWT Payload
       # {
       #   "exp": 1455120875,
+      #   "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
+      #   "type": "merchant-account",
       #   "data": {
-      #     "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
-      #     "type": "merchant-accounts",
-      #     "attributes": {
-      #       "name": "Alex Smith",
-      #       "roles": [
-      #         {
-      #           "id": "74eb402b-e159-4027-9363-60772e6e8930",
-      #           "type": "merchants",
-      #           "slug": "achsel-alex",
-      #           "name": "Achsel Alex",
-      #           "role": "member"
-      #         }
-      #       ]
-      #     }
+      #     "owner": ["uUtUi3QLle6IvU1oOYIezg"],
+      #     "member": ["uUtUi3QLle6IvU1oOYIezg"],
+      #     "admin": ["uUtUi3QLle6IvU1oOYIezg"]
       #   }
       # }
+      #
       class AccessToken
         JWT_ALGORITHM = 'HS256'.freeze
         private_constant :JWT_ALGORITHM
 
         attr_accessor :exp
-        attr_accessor :account
+        attr_accessor :data
 
         # @example auth_header
         #     Bearer eyJhbGciOiJIUz.eyJzdWIiOiIx.DcEfxjoYZgeFONFh7HgQ
@@ -54,23 +45,33 @@ module Shore
         end
 
         # @param jwt_payload [Hash]
-        def self.parse_jwt_payload(jwt_payload)
-          exp = Time.at(jwt_payload['exp']) if jwt_payload['exp'].present?
-          account = Shore::Client::Tokens::MerchantAccount
-                    .parse(jwt_payload['data'])
+        def self.parse_jwt_payload(payload)
+          expires = Time.at(payload['exp']) if payload['exp'].present?
+          type = payload['type']
+          version = payload['version']
 
-          new(exp: exp, account: account)
+          if type == 'merchant-account' && version == 1
+            data = Shore::Client::Tokens::V1::MerchantAccount.parse(payload)
+          end
+
+          new(exp: expires, data: data)
         end
 
         # @see parse_auth_header
         def self._parse_auth_header(auth_header, secret)
           token = extract_token(auth_header)
-          fail InvalidTokenError,
-               'Wrong authorization header format' if token.blank?
-          decoded_token = JWT.decode(token, secret, true,
-                                     algorithm: JWT_ALGORITHM)
+
+          if token.blank?
+            fail InvalidTokenError, 'Wrong authorization header format'
+          end
+
+          decoded_token = JWT.decode(
+            token, secret, true, algorithm: JWT_ALGORITHM
+          )
+
           parse_jwt_payload(decoded_token.first)
         end
+
         private_class_method :_parse_auth_header
 
         # @param [String] the value of the Authorization request header
@@ -91,26 +92,33 @@ module Shore
 
         # @param options [Hash]
         # @option options [String] :exp
-        # @option options [Shore::Client::Tokens::MerchantAccount] :account
-        #   that is granted access via this token. Mandatory.
+        # @option options [Hash] :data (implements .type, .id and .as_json)
         def initialize(options = {})
           options = options.with_indifferent_access
-          init_exp(options)
-          @account = options[:account]
+          assign_expiration(options)
+          @data = options[:data]
         end
 
         # @param secret [String]
         def to_jwt(secret)
-          fail InvalidTokenError, 'Account is missing' unless account
-          payload = {}
-          payload['exp'] = exp.to_i if exp
-          payload['data'] = account.as_json
-          JWT.encode(payload, secret, JWT_ALGORITHM)
+          fail InvalidTokenError, 'Data is missing' unless data
+
+          JWT.encode(jwt_payload, secret, JWT_ALGORITHM)
         end
 
         private
 
-        def init_exp(options)
+        def jwt_payload
+          {}.tap do |payload|
+            payload['id'] = data.id
+            payload['exp'] = exp.to_i if exp
+            payload['version'] = data.version
+            payload['type'] = data.type
+            payload['data'] = data.as_json
+          end
+        end
+
+        def assign_expiration(options)
           @exp = if options.key?(:exp)
                    options[:exp]
                  elsif (minutes = options[:exp_minutes_from_now]).present?
