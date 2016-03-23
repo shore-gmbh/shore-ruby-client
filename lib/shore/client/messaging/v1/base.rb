@@ -3,7 +3,7 @@ module Shore
     module Messaging
       module V1
         class Base < JsonApiClient::Resource # :nodoc:
-          self.site = Shore::Client::Messaging.base_uri(:v1)
+          self.site = Shore::Client::Services.url_for(:messaging, :v1)
         end
       end
     end
