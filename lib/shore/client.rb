@@ -5,6 +5,7 @@ require_relative 'client/tokens/access_token'
 require_relative 'client/messaging/v1'
 require_relative 'client/newsletter/v1'
 require_relative 'client/uuid_helpers'
+require_relative 'client/connection_middleware'
 
 module Shore
   module Client # :nodoc:
