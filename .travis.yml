@@ -1,3 +1,8 @@
 sudo: false
 language: ruby
 before_install: gem install bundler -v 1.11.2
+
+branches:
+  only:
+    - "master"
+
