@@ -13,8 +13,6 @@ require 'coveralls'
 require 'webmock/rspec'
 Coveralls.wear!
 
-require_relative '../lib/shore/client/helpers/test_helpers'
-
 # Load support files
 Dir[File.dirname(__FILE__) + '/support/*.rb'].each { |f| require f }
 
@@ -43,7 +41,6 @@ WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   # Be very strict with the syntax. This will make it easier to upgrade rspec.
   config.raise_errors_for_deprecations!
-  config.include Shore::Client::Helpers::TestHelpers
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
