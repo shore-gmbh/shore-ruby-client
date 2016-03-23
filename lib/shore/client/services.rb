@@ -25,6 +25,8 @@ module Shore
           'https://messaging.shore.com'
         when :newsletter
           'https://newsletter.shore.com'
+        when :core
+          'https://secure.shore.com'
         end
       end
 
