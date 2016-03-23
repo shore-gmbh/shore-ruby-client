@@ -75,4 +75,14 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       )
     end
   end
+
+  describe '.merchant_uuids' do
+    subject { described_class.new(id, attributes) }
+
+    it 'returns list of Merchants the MerchantAccount can access' do
+      expect(subject.merchant_uuids).to contain_exactly(
+        admin[:id], owner[:id], member[:id]
+      )
+    end
+  end
 end
