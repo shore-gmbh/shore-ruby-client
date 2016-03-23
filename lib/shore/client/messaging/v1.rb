@@ -1,5 +1,0 @@
-require 'json_api_client'
-require_relative 'v1/base'
-require_relative 'v1/conversation'
-require_relative 'v1/message'
-require_relative 'v1/participant'

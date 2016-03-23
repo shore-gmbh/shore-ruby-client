@@ -1,15 +1,15 @@
-def stub_success_request(message_id, auth_header)
+def stub_messaging_success_request(message_id, auth_header)
   stub_request(:get, messaging_url(message_id))
     .with(correct_headers(auth_header))
-    .to_return(correct_response(message_id))
+    .to_return(correct_messaging_response(message_id))
 end
 
-def stub_not_authorized_request(message_id)
+def stub_messaging_not_authorized_request(message_id)
   stub_request(:get, messaging_url(message_id))
     .to_return(status: 401)
 end
 
-def stub_not_found_request(message_id, auth_header)
+def stub_messaging_not_found_request(message_id, auth_header)
   stub_request(:get, messaging_url(message_id))
     .with(correct_headers(auth_header))
     .to_return(status: 404)
@@ -24,7 +24,7 @@ def correct_headers(auth_header)
   }
 end
 
-def correct_response(message_id)
+def correct_messaging_response(message_id)
   {
     headers: { content_type: 'application/vnd.api+json' },
     body: {
