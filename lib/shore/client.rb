@@ -3,6 +3,7 @@ require_relative 'client/version'
 require_relative 'client/services'
 require_relative 'client/tokens/access_token'
 require_relative 'client/messaging/v1'
+require_relative 'client/newsletter/v1'
 require_relative 'client/uuid_helpers'
 
 module Shore
