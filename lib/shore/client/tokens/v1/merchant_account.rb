@@ -115,9 +115,9 @@ module Shore
           #   id: uuid,
           #   type: 'merchant-account',
           #   data: {
-          #     o: [uuids],
-          #     m: [uuids],
-          #     a: [uuids],
+          #     owner: [uuids],
+          #     member: [uuids],
+          #     admin: [uuids],
           #   }
           # }
           #

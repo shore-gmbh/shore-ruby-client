@@ -8,23 +8,15 @@ module Shore
       # @example JWT Payload
       # {
       #   "exp": 1455120875,
+      #   "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
+      #   "type": "merchant-account",
       #   "data": {
-      #     "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
-      #     "type": "merchant-accounts",
-      #     "attributes": {
-      #       "name": "Alex Smith",
-      #       "roles": [
-      #         {
-      #           "id": "74eb402b-e159-4027-9363-60772e6e8930",
-      #           "type": "merchants",
-      #           "slug": "achsel-alex",
-      #           "name": "Achsel Alex",
-      #           "role": "member"
-      #         }
-      #       ]
-      #     }
+      #     "owner": ["uUtUi3QLle6IvU1oOYIezg"],
+      #     "member": ["uUtUi3QLle6IvU1oOYIezg"],
+      #     "admin": ["uUtUi3QLle6IvU1oOYIezg"]
       #   }
       # }
+      #
       class AccessToken
         JWT_ALGORITHM = 'HS256'.freeze
         private_constant :JWT_ALGORITHM
