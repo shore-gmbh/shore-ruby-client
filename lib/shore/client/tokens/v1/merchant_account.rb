@@ -125,11 +125,9 @@ module Shore
 
           def as_json
             {
-              data: {
-                owner: urlsafe_uuids(owners),
-                member: urlsafe_uuids(members),
-                admin: urlsafe_uuids(admins)
-              }
+              owner: urlsafe_uuids(owners),
+              member: urlsafe_uuids(members),
+              admin: urlsafe_uuids(admins)
             }
           end
 

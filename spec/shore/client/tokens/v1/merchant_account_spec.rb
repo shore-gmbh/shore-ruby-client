@@ -46,13 +46,9 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
 
     it 'builds a proper jwt payload' do
       expect(subject).to match(
-        a_hash_including(
-          data: {
-            owner: [urlsafe_uuid(owner[:id])],
-            admin: [urlsafe_uuid(admin[:id])],
-            member: [urlsafe_uuid(member[:id])]
-          }
-        )
+        owner: [urlsafe_uuid(owner[:id])],
+        admin: [urlsafe_uuid(admin[:id])],
+        member: [urlsafe_uuid(member[:id])]
       )
     end
   end
