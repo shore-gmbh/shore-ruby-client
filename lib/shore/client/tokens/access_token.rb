@@ -50,7 +50,7 @@ module Shore
           type = payload['type']
           version = payload['version']
 
-          if type = 'merchant-account' && version == 1
+          if type == 'merchant-account' && version == 1
             data = Shore::Client::Tokens::V1::MerchantAccount.parse(payload)
           end
 
@@ -95,7 +95,7 @@ module Shore
         # @option options [Hash] :data (implements .type, .id and .as_json)
         def initialize(options = {})
           options = options.with_indifferent_access
-          set_expiration(options)
+          assign_expiration(options)
           @data = options[:data]
         end
 
@@ -103,19 +103,22 @@ module Shore
         def to_jwt(secret)
           fail InvalidTokenError, 'Data is missing' unless data
 
-          payload = {}
-          payload['id'] = data.id
-          payload['exp'] = exp.to_i if exp
-          payload['version'] = data.version
-          payload['type'] = data.type
-          payload['data'] = data.as_json
-
-          JWT.encode(payload, secret, JWT_ALGORITHM)
+          JWT.encode(jwt_payload, secret, JWT_ALGORITHM)
         end
 
         private
 
-        def set_expiration(options)
+        def jwt_payload
+          {}.tap do |payload|
+            payload['id'] = data.id
+            payload['exp'] = exp.to_i if exp
+            payload['version'] = data.version
+            payload['type'] = data.type
+            payload['data'] = data.as_json
+          end
+        end
+
+        def assign_expiration(options)
           @exp = if options.key?(:exp)
                    options[:exp]
                  elsif (minutes = options[:exp_minutes_from_now]).present?

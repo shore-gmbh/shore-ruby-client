@@ -28,7 +28,8 @@ module Shore
             return 'member' if member?(merchant_uuid)
             return 'admin' if admin?(merchant_uuid)
             return 'owner' if owner?(merchant_uuid)
-            return nil
+
+            nil
           end
 
           # Just for backwards compatibility in CORE.
@@ -127,7 +128,7 @@ module Shore
               data: {
                 owner: urlsafe_uuids(owners),
                 member: urlsafe_uuids(members),
-                admin: urlsafe_uuids(admins),
+                admin: urlsafe_uuids(admins)
               }
             }
           end
@@ -140,7 +141,8 @@ module Shore
             new(data['id'], data['data'])
           end
 
-          private 
+          private
+
           def urlsafe_uuids(uuids)
             uuids.map { |uuid| UUID.to_urlsafe(uuid) }
           end

@@ -15,7 +15,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
         data: {
           admin: [urlsafe_uuid(admin[:id])],
           owner: [urlsafe_uuid(owner[:id])],
-          member: [urlsafe_uuid(member[:id])],
+          member: [urlsafe_uuid(member[:id])]
         }
       }
     end

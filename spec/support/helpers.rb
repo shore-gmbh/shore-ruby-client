@@ -6,21 +6,21 @@ module Shore
           UUID.to_urlsafe(uuid)
         end
 
-        def admin_merchant(id=nil)
+        def admin_merchant(id = nil)
           {
             id: id || SecureRandom.uuid,
             role: 'admin'
           }
         end
 
-        def owner_merchant(id=nil)
+        def owner_merchant(id = nil)
           {
             id: id || SecureRandom.uuid,
             role: 'owner'
           }
         end
 
-        def member_merchant(id=nil)
+        def member_merchant(id = nil)
           {
             id: id || SecureRandom.uuid,
             role: 'member'
