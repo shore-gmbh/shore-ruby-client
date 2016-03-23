@@ -1,37 +1,45 @@
 RSpec.describe Shore::Client::Tokens::AccessToken do
   let(:exp) { (Time.now.utc + 2.days).beginning_of_day }
   let(:secret) { 'secret' }
-  let(:member_role) { merchant_role }
-  let(:valid_jwt_payload) { jwt_payload(exp: exp, member_roles: [member_role]) }
+  let(:member) { member_merchant }
+  let(:merchant_token) do
+    merchant_account_token(SecureRandom.uuid, [member])
+  end
+  let(:valid_jwt_payload) do
+    described_class.new(
+      data: merchant_token,
+      exp: exp
+    )
+  end
 
   describe '.initialize' do
     it 'ignores :exp_minutes_from_now if :exp set' do
-      expect(described_class.new(exp: exp, exp_minutes_from_now: '1').exp)
-        .to eq(exp)
+      expires = described_class.new(exp: exp, exp_minutes_from_now: '1').exp
+      expect(expires).to eq(exp)
     end
 
     it 'sets exp if :exp not set, but :exp_minutes_from_now is' do
       Timecop.freeze do
-        expect(described_class.new(exp_minutes_from_now: '13').exp)
-          .to eq(Time.now + 13.minutes)
+        expires = described_class.new(exp_minutes_from_now: '13').exp
+        expect(expires).to eq(Time.now + 13.minutes)
       end
     end
   end
 
   describe '.parse_auth_header' do
     let(:valid_auth_header) do
-      "Bearer #{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
+      "Bearer #{valid_jwt_payload.to_jwt(secret)}"
     end
 
     it 'returns an AccessToken' do
-      expect(
-        described_class.parse_auth_header(valid_auth_header, secret))
-        .to be_an_instance_of(described_class)
+      token = described_class.parse_auth_header(valid_auth_header, secret)
+      expect(token).to be_an_instance_of(described_class)
     end
 
     context 'when expiration time has past' do
       let(:exp) { (Time.now.utc - 2.days).beginning_of_day }
-      it 'fails' do
+
+      it 'fails with InvalidTokenError' do
         expect do
           described_class.parse_auth_header(valid_auth_header, secret)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
@@ -39,7 +47,7 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
     end
 
     context 'when header is blank' do
-      it 'fails' do
+      it 'fails with InvalidTokenError' do
         expect do
           described_class.parse_auth_header('', secret)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
@@ -47,21 +55,19 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
     end
 
     context 'when header is not a valid jwt' do
-      it 'fails' do
+      it 'fails with InvalidTokenError' do
         expect do
-          described_class.parse_auth_header(
-            'Bearer blahblahblahblah', secret)
+          described_class.parse_auth_header('Bearer nope', secret)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
 
     context 'when the secret is wrong' do
       let(:wrong_secret) { 'the-wrong-secret' }
-      it 'fails' do
+      it 'fails with InvalidTokenError' do
         expect(wrong_secret).to_not eq(secret)
         expect do
-          described_class.parse_auth_header(
-            valid_auth_header, wrong_secret)
+          described_class.parse_auth_header(valid_auth_header, wrong_secret)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
@@ -70,7 +76,7 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
   describe '#to_jwt' do
     context 'without exp' do
       subject(:jwt) do
-        described_class.new(account: valid_jwt_payload['data']).to_jwt(secret)
+        described_class.new(data: merchant_token).to_jwt(secret)
       end
 
       it 'creates jwt' do
@@ -80,8 +86,7 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
 
     context 'with exp' do
       subject(:jwt) do
-        described_class.new(account: valid_jwt_payload['data'], exp: exp)
-          .to_jwt(secret)
+        described_class.new(data: merchant_token, exp: exp).to_jwt(secret)
       end
       let(:header) { JSON(Base64.decode64(jwt.split('.')[0])) }
       let(:payload) { JSON(Base64.decode64(jwt.split('.')[1])) }
@@ -95,7 +100,14 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       end
 
       it 'parses jwt payload' do
-        expect(payload).to eq(valid_jwt_payload)
+        expect(payload).to match(
+          a_hash_including(
+            'id'      => merchant_token.id,
+            'type'    => merchant_token.type,
+            'version' => merchant_token.version,
+            'data'    => merchant_token.as_json.with_indifferent_access
+          )
+        )
       end
 
       it 'sets the expiration' do
@@ -107,22 +119,23 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       subject(:access_token) { described_class.new(exp: Time.now + 1.minute) }
 
       it 'fails with InvalidTokenError' do
-        expect { access_token.to_jwt(secret) }
-          .to raise_error(Shore::Client::Tokens::InvalidTokenError)
+        expect { access_token.to_jwt(secret) }.to(
+          raise_error(Shore::Client::Tokens::InvalidTokenError)
+        )
       end
     end
   end
 
   describe '.valid_format?' do
     let(:valid_bearer_auth_header_format) do
-      "Bearer #{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
+      "Bearer #{valid_jwt_payload.to_jwt(secret)}"
     end
 
     let(:invalid_token_auth_header_format) do
-      "Token token=#{JWT.encode(valid_jwt_payload, secret, 'HS256')}"
+      "Token token=#{valid_jwt_payload.to_jwt(secret)}"
     end
 
-    let(:invalid_bearer_auth_header_format) { 'Bearer blahblahblahblah' }
+    let(:invalid_bearer_auth_header_format) { 'Bearer nope' }
 
     it "returns 'true' for valid Bearer format" do
       expect(described_class.valid_format?(valid_bearer_auth_header_format))

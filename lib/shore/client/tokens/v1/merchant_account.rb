@@ -4,7 +4,7 @@ module Shore
       module V1
         class MerchantAccount # :nodoc:
           TYPE = 'merchant-account'.freeze
-          attr_reader :id, :name, :type
+          attr_reader :id, :type, :version
 
           # Builds a hash where the Merchant UUID is the key and the Role is the
           # value.
@@ -48,6 +48,8 @@ module Shore
           # @param attributes [Hash] - JWT data.
           def initialize(id, attributes = {})
             @id = id
+            @type = TYPE
+            @version = 1
             @roles = {}
 
             @roles[:owner] = build_uuids(attributes[:owner] || [])
@@ -122,8 +124,6 @@ module Shore
 
           def as_json
             {
-              id: id,
-              type: TYPE,
               data: {
                 owner: urlsafe_uuids(owners),
                 member: urlsafe_uuids(members),

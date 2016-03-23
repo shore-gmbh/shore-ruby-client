@@ -10,6 +10,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
     let!(:payload) do
       {
         id: id,
+        version: 1,
         type: 'merchant-account',
         data: {
           admin: [urlsafe_uuid(admin[:id])],
@@ -19,12 +20,14 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       }
     end
 
-
     it 'loads the payload' do
       result = described_class.parse(payload)
       expect(result.owners).to include(owner[:id])
       expect(result.admins).to include(admin[:id])
       expect(result.members).to include(member[:id])
+      expect(result.type).to eq('merchant-account')
+      expect(result.version).to eq(1)
+      expect(result.id).to eq(id)
     end
   end
 
@@ -44,8 +47,6 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
     it 'builds a proper jwt payload' do
       expect(subject).to match(
         a_hash_including(
-          id: id,
-          type: 'merchant-account',
           data: {
             owner: [urlsafe_uuid(owner[:id])],
             admin: [urlsafe_uuid(admin[:id])],
