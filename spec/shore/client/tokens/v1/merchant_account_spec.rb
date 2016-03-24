@@ -85,4 +85,13 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       )
     end
   end
+
+  describe '.merchant_account' do
+    subject { described_class.new(id, attributes) }
+
+    it 'returns JSONAPI Client resource' do
+      expect(subject.merchant_account.id).to eq id
+      expect(subject.merchant_account.type).to eq 'merchant_accounts'
+    end
+  end
 end
