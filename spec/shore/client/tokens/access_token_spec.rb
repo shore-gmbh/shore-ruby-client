@@ -36,6 +36,11 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       expect(token).to be_an_instance_of(described_class)
     end
 
+    it 'has data' do
+      token = described_class.parse_auth_header(valid_auth_header, secret)
+      expect(token.data).not_to be_nil
+    end
+
     context 'when expiration time has past' do
       let(:exp) { (Time.now.utc - 2.days).beginning_of_day }
 

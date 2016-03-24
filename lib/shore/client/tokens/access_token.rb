@@ -8,8 +8,9 @@ module Shore
       # @example JWT Payload
       # {
       #   "exp": 1455120875,
-      #   "id": "226fc766-3cf0-4d18-a988-5f8235f17edb",
-      #   "type": "merchant-account",
+      #   "id": ["uUtUi3QLle6IvU1oOYIezg"],
+      #   "version": 1,
+      #   "type": "ma",
       #   "data": {
       #     "owner": ["uUtUi3QLle6IvU1oOYIezg"],
       #     "member": ["uUtUi3QLle6IvU1oOYIezg"],
@@ -50,7 +51,7 @@ module Shore
           type = payload['type']
           version = payload['version']
 
-          if type == 'merchant-account' && version == 1
+          if type == Tokens::V1::MerchantAccount::TYPE && version == 1
             data = Shore::Client::Tokens::V1::MerchantAccount.parse(payload)
           end
 
