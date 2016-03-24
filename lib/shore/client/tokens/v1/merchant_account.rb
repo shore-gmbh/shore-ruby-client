@@ -3,7 +3,7 @@ module Shore
     module Tokens
       module V1
         class MerchantAccount # :nodoc:
-          TYPE = 'merchant-accounts'.freeze
+          TYPE = 'ma'.freeze
           attr_reader :id, :type, :version
 
           # Builds a hash where the Merchant UUID is the key and the Role is the
