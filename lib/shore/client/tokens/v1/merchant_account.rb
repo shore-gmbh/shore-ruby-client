@@ -32,6 +32,11 @@ module Shore
             nil
           end
 
+          # @return [Shore::Client::V1::MerchantAccount]
+          def merchant_account
+            Shore::Client::V1::MerchantAccount.new(id: id)
+          end
+
           # Just for backwards compatibility in CORE.
           def import_roles(role_entries)
             role_entries.each do |role_entry|

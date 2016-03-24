@@ -14,7 +14,7 @@ def correct_core_response(merchant_account_id)
     headers: { content_type: 'application/vnd.api+json' },
     body: {
       data: [
-        type: 'merchant-accounts',
+        type: 'merchant_accounts',
         id: merchant_account_id,
         attributes: { display_name: 'Test', name: 'Test', email: 't@test.com' }
       ]
