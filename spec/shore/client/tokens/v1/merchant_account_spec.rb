@@ -11,7 +11,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       {
         id: id,
         version: 1,
-        type: 'merchant-account',
+        type: 'merchant-accounts',
         data: {
           admin: [urlsafe_uuid(admin[:id])],
           owner: [urlsafe_uuid(owner[:id])],
@@ -25,7 +25,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       expect(result.owners).to include(owner[:id])
       expect(result.admins).to include(admin[:id])
       expect(result.members).to include(member[:id])
-      expect(result.type).to eq('merchant-account')
+      expect(result.type).to eq('merchant-accounts')
       expect(result.version).to eq(1)
       expect(result.id).to eq(id)
     end
