@@ -12,7 +12,7 @@ Shore client to authorize API calls using [JWT](https://jwt.io)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'shore-client', github: 'shore-gmbh/shore-ruby-client', tag: 'v0.4.0'
+gem 'shore-client', github: 'shore-gmbh/shore-ruby-client', tag: 'v0.4.1'
 ```
 
 And then execute:
