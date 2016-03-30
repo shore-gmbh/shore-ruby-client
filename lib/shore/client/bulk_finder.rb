@@ -21,10 +21,21 @@ module Shore
           # TODO@am: Handle case in which results.errors.present?
           while results.present?
             results.each { |result| y.yield result }
-            results = (results.pages.next if
-              results.links.link_url_for('next').present?)
+            results = next_bulk_page(results)
           end
         end
+      end
+
+      private
+
+      def next_bulk_page(results)
+        # #all returns a JsonApiClient::ResultSet. Lets also support an
+        # Array in case this call is mocked in a test with...
+        # expect_any_instance_of(JsonApiClient::Query::Requestor)
+        #   .to receive(:get).and_return([])
+        results.pages.next if results.respond_to?(:links) && results.links &&
+                              results.respond_to?(:pages) && results.pages &&
+                              results.links.link_url_for('next').present?
       end
     end
   end
