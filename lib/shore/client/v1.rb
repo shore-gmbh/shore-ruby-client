@@ -1,4 +1,6 @@
 require 'json_api_client'
+require_relative 'bulk_finder'
+JsonApiClient::Query::Builder.include(Shore::Client::BulkFinder)
 require_relative 'v1/core_base'
 require_relative 'v1/messaging_base'
 require_relative 'v1/newsletter_base'
