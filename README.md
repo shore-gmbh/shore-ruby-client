@@ -108,7 +108,7 @@ For information how to use the helpers see `spec/shore/client/tokens`
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/[USERNAME]/shore-ruby-client. This project is intended to
+https://github.com/shore-gmbh/shore-ruby-client. This project is intended to
 be a safe, welcoming space for collaboration, and contributors are expected to
 adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 

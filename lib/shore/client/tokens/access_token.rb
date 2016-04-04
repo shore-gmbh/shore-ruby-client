@@ -38,7 +38,7 @@ module Shore
             fail InvalidTokenError,
                  'The required header, Authorization, is missing.'
           end
-          _parse_auth_header(auth_header, secret)
+          _parse_auth_header(auth_header, secret.to_s)
         rescue JWT::ExpiredSignature => error
           raise InvalidTokenError, error.message, error.backtrace
         rescue JWT::DecodeError => error

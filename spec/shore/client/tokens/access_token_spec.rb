@@ -76,6 +76,14 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
+
+    context 'when the secret is not provided' do
+      it 'fails with InvalidTokenError' do
+        expect do
+          described_class.parse_auth_header(valid_auth_header, nil)
+        end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
+      end
+    end
   end
 
   describe '#to_jwt' do
