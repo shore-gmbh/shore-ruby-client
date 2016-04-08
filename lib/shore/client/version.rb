@@ -1,5 +1,5 @@
 module Shore
   module Client # :nodoc:
-    VERSION = '0.4.6'.freeze
+    VERSION = '0.4.7'.freeze
   end
 end
