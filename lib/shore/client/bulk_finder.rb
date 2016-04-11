@@ -35,7 +35,7 @@ module Shore
         #   .to receive(:get).and_return([])
         results.pages.next if results.respond_to?(:links) && results.links &&
                               results.respond_to?(:pages) && results.pages &&
-                              results.links.link_url_for('next').present?
+                              results.links.links['next'].present?
       end
     end
   end
