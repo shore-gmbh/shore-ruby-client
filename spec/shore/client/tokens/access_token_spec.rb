@@ -118,6 +118,15 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
+
+    context 'when the algorithm is invalid' do
+      it 'fails with InvalidTokenError' do
+        expect do
+          described_class.parse_auth_header(
+            valid_auth_header, public_key: public_key, algorithm: 'invalid-alg')
+        end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
+      end
+    end
   end
 
   describe '#to_jwt' do
