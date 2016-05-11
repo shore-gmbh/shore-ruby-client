@@ -1,6 +1,8 @@
 RSpec.describe Shore::Client::Tokens::AccessToken do
   let(:exp) { (Time.now.utc + 2.days).beginning_of_day }
-  let(:secret) { 'secret' }
+  let(:algorithm) { 'HS256' }
+  let(:public_key) { 'secret' }
+  let(:private_key) { 'secret' }
   let(:member) { member_merchant }
   let(:merchant_token) do
     merchant_account_token(SecureRandom.uuid, [member])
@@ -28,16 +30,20 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
 
   describe '.parse_auth_header' do
     let(:valid_auth_header) do
-      "Bearer #{valid_jwt_payload.to_jwt(secret)}"
+      jwt = valid_jwt_payload.to_jwt(private_key: private_key,
+                                     algorithm: algorithm)
+      "Bearer #{jwt}"
     end
 
     it 'returns an AccessToken' do
-      token = described_class.parse_auth_header(valid_auth_header, secret)
+      token = described_class.parse_auth_header(
+        valid_auth_header, public_key: public_key, algorithm: algorithm)
       expect(token).to be_an_instance_of(described_class)
     end
 
     it 'has data' do
-      token = described_class.parse_auth_header(valid_auth_header, secret)
+      token = described_class.parse_auth_header(
+        valid_auth_header, public_key: public_key, algorithm: algorithm)
       expect(token.data).not_to be_nil
     end
 
@@ -46,7 +52,8 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
 
       it 'fails with InvalidTokenError' do
         expect do
-          described_class.parse_auth_header(valid_auth_header, secret)
+          described_class.parse_auth_header(
+            valid_auth_header, public_key: public_key, algorithm: algorithm)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
@@ -54,7 +61,8 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
     context 'when header is blank' do
       it 'fails with InvalidTokenError' do
         expect do
-          described_class.parse_auth_header('', secret)
+          described_class.parse_auth_header(
+            '', public_key: public_key, algorithm: algorithm)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
@@ -62,25 +70,51 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
     context 'when header is not a valid jwt' do
       it 'fails with InvalidTokenError' do
         expect do
-          described_class.parse_auth_header('Bearer nope', secret)
+          described_class.parse_auth_header(
+            'Bearer nope', public_key: public_key, algorithm: algorithm)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
 
-    context 'when the secret is wrong' do
-      let(:wrong_secret) { 'the-wrong-secret' }
+    context 'when the public_key is wrong' do
+      let(:wrong_public_key) { 'the-wrong-public-key' }
+      before { expect(wrong_public_key).to_not eq(public_key) }
       it 'fails with InvalidTokenError' do
-        expect(wrong_secret).to_not eq(secret)
         expect do
-          described_class.parse_auth_header(valid_auth_header, wrong_secret)
+          described_class.parse_auth_header(
+            valid_auth_header,
+            public_key: wrong_public_key, algorithm: algorithm)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
 
-    context 'when the secret is not provided' do
+    context 'when the algorithm is wrong' do
+      let(:algorithm) { 'HS384' }
+      let(:wrong_algorithm) { 'the-wrong-secret' }
+      before { expect(wrong_algorithm).to_not eq(algorithm) }
       it 'fails with InvalidTokenError' do
         expect do
-          described_class.parse_auth_header(valid_auth_header, nil)
+          described_class.parse_auth_header(
+            valid_auth_header,
+            public_key: public_key, algorithm: wrong_algorithm)
+        end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
+      end
+    end
+
+    context 'when the public key is not provided' do
+      it 'fails with InvalidTokenError' do
+        expect do
+          described_class.parse_auth_header(
+            valid_auth_header, public_key: nil, algorithm: algorithm)
+        end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
+      end
+    end
+
+    context 'when the algorithm is not provided' do
+      it 'fails with InvalidTokenError' do
+        expect do
+          described_class.parse_auth_header(
+            valid_auth_header, public_key: public_key, algorithm: nil)
         end.to raise_error(Shore::Client::Tokens::InvalidTokenError)
       end
     end
@@ -89,7 +123,8 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
   describe '#to_jwt' do
     context 'without exp' do
       subject(:jwt) do
-        described_class.new(data: merchant_token).to_jwt(secret)
+        described_class.new(data: merchant_token)
+          .to_jwt(private_key: private_key, algorithm: algorithm)
       end
 
       it 'creates jwt' do
@@ -99,7 +134,8 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
 
     context 'with exp' do
       subject(:jwt) do
-        described_class.new(data: merchant_token, exp: exp).to_jwt(secret)
+        described_class.new(data: merchant_token, exp: exp)
+          .to_jwt(private_key: private_key, algorithm: algorithm)
       end
       let(:header) { JSON(Base64.decode64(jwt.split('.')[0])) }
       let(:payload) { JSON(Base64.decode64(jwt.split('.')[1])) }
@@ -109,7 +145,7 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       end
 
       it 'parses jwt header' do
-        expect(header).to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(header).to eq('typ' => 'JWT', 'alg' => algorithm)
       end
 
       it 'parses jwt payload' do
@@ -132,20 +168,24 @@ RSpec.describe Shore::Client::Tokens::AccessToken do
       subject(:access_token) { described_class.new(exp: Time.now + 1.minute) }
 
       it 'fails with InvalidTokenError' do
-        expect { access_token.to_jwt(secret) }.to(
-          raise_error(Shore::Client::Tokens::InvalidTokenError)
-        )
+        expect do
+          access_token.to_jwt(private_key: private_key, algorithm: algorithm)
+        end.to(raise_error(Shore::Client::Tokens::InvalidTokenError))
       end
     end
   end
 
   describe '.valid_format?' do
     let(:valid_bearer_auth_header_format) do
-      "Bearer #{valid_jwt_payload.to_jwt(secret)}"
+      jwt = valid_jwt_payload.to_jwt(private_key: private_key,
+                                     algorithm: algorithm)
+      "Bearer #{jwt}"
     end
 
     let(:invalid_token_auth_header_format) do
-      "Token token=#{valid_jwt_payload.to_jwt(secret)}"
+      jwt = valid_jwt_payload.to_jwt(private_key: private_key,
+                                     algorithm: algorithm)
+      "Token token=#{jwt}"
     end
 
     let(:invalid_bearer_auth_header_format) { 'Bearer nope' }

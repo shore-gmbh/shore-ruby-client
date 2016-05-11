@@ -29,16 +29,19 @@ module Shore
         #     Bearer eyJhbGciOiJIUz.eyJzdWIiOiIx.DcEfxjoYZgeFONFh7HgQ
         #
         # @param auth_header [String]
-        # @param secret [String]
+        # @param public_key [String] The key used to verify the JWT signature
+        # @param algorithm [String] The algorithm used to encrypt the JWT
+        #   signature (e.g. 'RS256')
         # @raise InvalidTokenError if the auth_header does not contain a valid
         #   token
         # @raise TokenExpiredError if the token is valid, but has expired
-        def self.parse_auth_header(auth_header, secret)
+        def self.parse_auth_header(auth_header, public_key:, algorithm:)
           if auth_header.blank?
             fail InvalidTokenError,
                  'The required header, Authorization, is missing.'
           end
-          _parse_auth_header(auth_header, secret.to_s)
+          _parse_auth_header(auth_header,
+                             public_key: public_key, algorithm: algorithm)
         rescue JWT::ExpiredSignature => error
           raise InvalidTokenError, error.message, error.backtrace
         rescue JWT::DecodeError => error
@@ -59,7 +62,7 @@ module Shore
         end
 
         # @see parse_auth_header
-        def self._parse_auth_header(auth_header, secret)
+        def self._parse_auth_header(auth_header, public_key:, algorithm:)
           token = extract_token(auth_header)
 
           if token.blank?
@@ -67,7 +70,7 @@ module Shore
           end
 
           decoded_token = JWT.decode(
-            token, secret, true, algorithm: JWT_ALGORITHM
+            token, public_key.to_s, true, algorithm: algorithm.to_s
           )
 
           parse_jwt_payload(decoded_token.first)
@@ -100,11 +103,14 @@ module Shore
           @data = options[:data]
         end
 
-        # @param secret [String]
-        def to_jwt(secret)
+        # @param private_key [String] The key to use to encrypt the
+        #   JWT signature
+        # @param algorithm [String] The algorithm to use to encrypt the
+        #   JWT signature (e.g. 'RS256')
+        def to_jwt(private_key:, algorithm:)
           fail InvalidTokenError, 'Data is missing' unless data
 
-          JWT.encode(jwt_payload, secret, JWT_ALGORITHM)
+          JWT.encode(jwt_payload, private_key.to_s, algorithm.to_s)
         end
 
         private

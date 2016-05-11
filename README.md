@@ -33,7 +33,10 @@ $ gem install shore-client
 
 ```ruby
 require 'shore-client'
-Shore::Client::Tokens::AccessToken.parse_auth_header(auth_header, secret)
+Shore::Client::Tokens::AccessToken.parse_auth_header(
+  auth_header,
+  public_key: ENV['SHORE_JWT_PUBLIC_KEY'],
+  algorithm: ENV['SHORE_JWT_ALGORITHM'])
 ```
 
 * Authentication Header format validation
