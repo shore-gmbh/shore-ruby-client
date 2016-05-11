@@ -19,9 +19,6 @@ module Shore
       # }
       #
       class AccessToken
-        JWT_ALGORITHM = 'HS256'.freeze
-        private_constant :JWT_ALGORITHM
-
         attr_accessor :exp
         attr_accessor :data
 
