@@ -5,6 +5,7 @@ module Shore
     module V1
       # @abstract
       class CoreBase < JsonApiClient::Resource
+        include ComparableByTypeAndId
         self.site = Shore::Client::Services.url_for(:core, :v1)
         connection do |connection|
           connection.use Shore::Client::ConnectionMiddleware

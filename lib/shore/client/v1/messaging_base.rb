@@ -5,6 +5,7 @@ module Shore
     module V1
       # @abstract
       class MessagingBase < JsonApiClient::Resource
+        include ComparableByTypeAndId
         self.site = Shore::Client::Services.url_for(:messaging, :v1)
         connection do |connection|
           connection.use Shore::Client::ConnectionMiddleware

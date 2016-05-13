@@ -1,5 +1,6 @@
 require 'active_support/all'
 require_relative 'client/version'
+require_relative 'client/comparable_by_type_and_id'
 require_relative 'client/services'
 require_relative 'client/tokens/access_token'
 require_relative 'client/uuid_helpers'
