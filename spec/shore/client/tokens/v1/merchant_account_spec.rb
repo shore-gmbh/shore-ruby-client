@@ -4,7 +4,8 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
   let!(:owner) { owner_merchant }
   let(:roles) { [admin, owner, member] }
   let(:id) { '74eb402b-e159-4027-9363-60772e6e8930' }
-  let(:attributes) { { roles: roles } }
+  let(:name) { 'Bob Barker' }
+  let(:attributes) { { name: name, roles: roles } }
 
   describe '#parse' do
     let!(:payload) do
@@ -13,6 +14,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
         version: 1,
         type: 'ma',
         data: {
+          name: name,
           admin: [urlsafe_uuid(admin[:id])],
           owner: [urlsafe_uuid(owner[:id])],
           member: [urlsafe_uuid(member[:id])]
@@ -28,6 +30,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
       expect(result.type).to eq('ma')
       expect(result.version).to eq(1)
       expect(result.id).to eq(id)
+      expect(result.name).to eq(name)
     end
   end
 
@@ -46,6 +49,7 @@ RSpec.describe Shore::Client::Tokens::V1::MerchantAccount do
 
     it 'builds a proper jwt payload' do
       expect(subject).to match(
+        name: name,
         owner: [urlsafe_uuid(owner[:id])],
         admin: [urlsafe_uuid(admin[:id])],
         member: [urlsafe_uuid(member[:id])]

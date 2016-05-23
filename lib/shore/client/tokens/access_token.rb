@@ -12,6 +12,7 @@ module Shore
       #   "version": 1,
       #   "type": "ma",
       #   "data": {
+      #     "name": "Bob Barker",
       #     "owner": ["uUtUi3QLle6IvU1oOYIezg"],
       #     "member": ["uUtUi3QLle6IvU1oOYIezg"],
       #     "admin": ["uUtUi3QLle6IvU1oOYIezg"]
