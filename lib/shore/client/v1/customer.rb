@@ -1,7 +1,7 @@
 module Shore
   module Client
     module V1
-      class Customer < CoreBase # :nodoc:
+      class Customer < CustomerBase # :nodoc:
       end
     end
   end

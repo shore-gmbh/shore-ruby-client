@@ -22,11 +22,13 @@ module Shore
       def self.default_uri(service)
         case service
         when :messaging
-          'https://messaging.shore.com'
+          'https://shore-messaging-production.herokuapp.com'
         when :newsletter
           'https://newsletter.shore.com'
         when :core
           'https://secure.shore.com'
+        when :customer
+          'https://css.shore.com'
         end
       end
 
