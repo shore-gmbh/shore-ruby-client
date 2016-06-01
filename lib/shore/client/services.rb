@@ -28,7 +28,7 @@ module Shore
         when :core
           'https://secure.shore.com'
         when :customer
-          'http://css.shore.com'
+          'https://css.shore.com'
         end
       end
 
