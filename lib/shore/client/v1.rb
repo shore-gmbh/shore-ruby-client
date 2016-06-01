@@ -4,6 +4,7 @@ JsonApiClient::Query::Builder.include(Shore::Client::BulkFinder)
 require_relative 'v1/core_base'
 require_relative 'v1/messaging_base'
 require_relative 'v1/newsletter_base'
+require_relative 'v1/customer_base'
 require_relative 'v1/conversation'
 require_relative 'v1/message'
 require_relative 'v1/participant'
