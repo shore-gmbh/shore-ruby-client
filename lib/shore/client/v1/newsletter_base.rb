@@ -6,6 +6,7 @@ module Shore
       # @abstract
       class NewsletterBase < JsonApiClient::Resource
         include ComparableByTypeAndId
+        include WithUrl
         self.site = Shore::Client::Services.url_for(:newsletter, :v1)
         connection do |connection|
           connection.use Shore::Client::ConnectionMiddleware
