@@ -1,6 +1,6 @@
-# Shore::Client
+# Shore
 
-Shore client to authorize API calls using [JWT](https://jwt.io)
+Ruby client gem for the Shore APIs
 
 [![Build Status](https://travis-ci.org/shore-gmbh/shore-ruby-client.svg?branch=master)](https://travis-ci.org/shore-gmbh/shore-ruby-client)
 [![Coverage Status](https://coveralls.io/repos/github/shore-gmbh/shore-ruby-client/badge.svg?branch=master)](https://coveralls.io/github/shore-gmbh/shore-ruby-client?branch=master)
@@ -12,7 +12,7 @@ Shore client to authorize API calls using [JWT](https://jwt.io)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'shore-client', github: 'shore-gmbh/shore-ruby-client', tag: 'v0.6.2'
+gem 'shore', github: 'shore-gmbh/shore-ruby-client'
 ```
 
 And then execute:
@@ -24,7 +24,7 @@ $ bundle install
 Or install it yourself as:
 
 ```sh
-$ gem install shore-client
+$ gem install shore
 ```
 
 ## Usage
@@ -32,8 +32,8 @@ $ gem install shore-client
 * Parse Authentication Header
 
 ```ruby
-require 'shore-client'
-Shore::Client::Tokens::AccessToken.parse_auth_header(
+require 'shore'
+Shore::Tokens::AccessToken.parse_auth_header(
   auth_header,
   public_key: ENV['SHORE_JWT_PUBLIC_KEY'],
   algorithm: ENV['SHORE_JWT_ALGORITHM'])
@@ -42,8 +42,8 @@ Shore::Client::Tokens::AccessToken.parse_auth_header(
 * Authentication Header format validation
 
 ```ruby
-require 'shore-client'
-Shore::Client::Tokens::AccessToken.valid_format?(auth_header)
+require 'shore'
+Shore::Tokens::AccessToken.valid_format?(auth_header)
 ```
 
 ## Development
@@ -87,26 +87,13 @@ gem_push=no bin/rake release
 This will create a git tag for the version, push git commits and tags, without
 pushing the gem to RubyGems.
 
-## Use RSpec helpers in your project
+## Testing
 
-To use defined jwt payload, member role and merchant account helpers in your
-project, include the gem in `spec_helper.rb` like this:
-
-```ruby
-dir = Gem::Specification.find_by_name('shore-client').gem_dir
-files = Dir.glob(File.join(dir, 'spec/support/*.rb'))
-files.each { |f| require(f) }
-```
-
-and add this in RSpec configuration
+TODO@am: Improve the documentation about how to write tests using the shore clients.
 
 ```ruby
-RSpec.configure do |config|
-  config.include Shore::Client::RSpec::Helpers
-end
+require 'shore/webmock'
 ```
-
-For information how to use the helpers see `spec/shore/client/tokens`
 
 ## Contributing
 
