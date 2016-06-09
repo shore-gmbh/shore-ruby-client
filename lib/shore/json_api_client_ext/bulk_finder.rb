@@ -1,7 +1,7 @@
 require 'json_api_client'
 
 module Shore
-  module JsonApiClient
+  module JsonApiClientExt
     # Enumerate through all pages.
     # @see JsonApiClient::Query::Builder
     module BulkFinder
@@ -43,5 +43,3 @@ module Shore
     end
   end
 end
-
-JsonApiClient::Query::Builder.include(Shore::JsonApiClient::BulkFinder)

@@ -2,7 +2,7 @@ require 'faraday'
 require 'shore/authorization'
 
 module Shore
-  module JsonApiClient
+  module JsonApiClientExt
     # Set the "Authorization" header for all requests.
     # @see Shore.authorization
     class AuthorizationMiddleware < Faraday::Middleware

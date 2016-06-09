@@ -1,8 +1,8 @@
 require_relative '../../spec_helper'
 
-RSpec.describe Shore::JsonApiClient::ComparableByTypeAndId do
+RSpec.describe Shore::JsonApiClientExt::ComparableByTypeAndId do
   class MyComparable < OpenStruct
-    include Shore::JsonApiClient::ComparableByTypeAndId
+    include Shore::JsonApiClientExt::ComparableByTypeAndId
   end
 
   describe '#<=>' do

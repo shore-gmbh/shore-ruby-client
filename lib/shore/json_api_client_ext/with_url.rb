@@ -1,5 +1,5 @@
 module Shore
-  module JsonApiClient
+  module JsonApiClientExt
     # Adds {url} method to the class.
     module WithUrl
       extend ActiveSupport::Concern

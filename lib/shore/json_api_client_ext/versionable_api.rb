@@ -1,7 +1,7 @@
 require 'uri'
 
 module Shore
-  module JsonApiClient
+  module JsonApiClientExt
     # @deprecated As soon as all micro-services are callable via the shore
     #   api gateway, then this will no longer be needed.
     # @see base_url

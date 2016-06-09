@@ -1,5 +1,5 @@
 module Shore
-  module JsonApiClient
+  module JsonApiClientExt
     # Two objects are equal if their {#type} and {#id} are the same.
     # Two objects are ordered relatively to each other first by {#type} and
     # then by {#id}.

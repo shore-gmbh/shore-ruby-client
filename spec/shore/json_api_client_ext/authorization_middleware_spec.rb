@@ -1,4 +1,4 @@
-RSpec.describe Shore::JsonApiClient::AuthorizationMiddleware do
+RSpec.describe Shore::JsonApiClientExt::AuthorizationMiddleware do
   def auth_header(env)
     env[:request_headers]['Authorization']
   end
