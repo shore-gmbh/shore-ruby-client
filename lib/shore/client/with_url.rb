@@ -5,14 +5,10 @@ module Shore
       extend ActiveSupport::Concern
 
       module ClassMethods # :nodoc:
-        def uri(params = {})
+        def url(params = {})
           path = requestor.send(:resource_path, params.slice(:id))
           connection = requestor.send(:connection)
-          connection.faraday.build_url(path, extra_params(params))
-        end
-
-        def url(params = {})
-          uri(params).to_s
+          connection.faraday.build_url(path, extra_params(params)).to_s
         end
 
         private
@@ -42,10 +38,6 @@ module Shore
             value.respond_to?(:id) ? value.id : value.to_s
           end
         end
-      end
-
-      def uri(params = {})
-        self.class.uri(params.with_indifferent_access.merge(id: id))
       end
 
       def url(params = {})
