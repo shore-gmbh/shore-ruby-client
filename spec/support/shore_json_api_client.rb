@@ -9,13 +9,21 @@ RSpec.shared_examples 'shore json api client' do
     expect(described_class.site).to eq(site)
   end
 
+  describe '.url' do
+    context 'without params' do
+      subject { described_class.url }
+
+      it { is_expected.to eq(site + '/' + described_class.table_name) }
+    end
+  end
+
   describe '.find(:id).first' do
     let(:id) { '11111111-1111-1111-1111-111111111111' }
     let(:instance) do
       described_class.load(id: id, attr_name: 'Attribute value')
     end
 
-    let(:subject) { described_class.find(id).first }
+    subject { described_class.find(id).first }
 
     it 'returns client instance if success' do
       stub_request(:get, instance.url)
@@ -49,7 +57,7 @@ RSpec.shared_examples 'shore json api client' do
       described_class.load(id: id, attr_name: 'Attribute value')
     end
 
-    let(:subject) { described_class.all }
+    subject { described_class.all }
 
     it 'returns array of client instances if success' do
       stub_request(:get, described_class.url)
