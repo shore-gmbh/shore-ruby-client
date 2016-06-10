@@ -18,15 +18,3 @@ require_relative 'participant'
 
 # Newsletter Service
 require_relative 'newsletter'
-
-module Shore
-  module V1 # :nodoc:
-    # Shorten the code by adding all of the client classes to the Shore
-    # module (e.g. `Shore::Merchant = Shore::V1::Merchant`).
-    constants.map { |name| [name, const_get(name)] }
-      .select { |_name, klass| Class == klass.class }
-      .each do |name, klass|
-      Shore.const_set(name, klass)
-    end
-  end
-end
