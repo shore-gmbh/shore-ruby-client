@@ -16,7 +16,7 @@ module Shore
 
       DEFAULT_BASE_URI = 'https://api.shore.com'
 
-      class_methods do
+      module ClassMethods # :nodoc:
         def base_url(version)
           base_uri = ENV['SHORE_API_BASE_URI']
           base_uri = DEFAULT_BASE_URI if base_uri.blank?
