@@ -18,3 +18,6 @@ require_relative 'participant'
 
 # Newsletter Service
 require_relative 'newsletter'
+
+# Communication Service
+require_relative 'sms_limit'
