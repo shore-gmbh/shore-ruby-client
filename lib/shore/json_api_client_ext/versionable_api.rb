@@ -61,6 +61,8 @@ module Shore
             'https://css.shore.com'
           when :payment
             'https://payment.shore.com'
+          when :communication
+            'https://communication.shore.com'
           end
         end
       end

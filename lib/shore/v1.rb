@@ -1,5 +1,5 @@
 require 'active_support/all'
-
+Dotenv.load if defined? Dotenv
 require_relative 'version'
 require_relative 'authorization'
 require_relative 'v1/all'
