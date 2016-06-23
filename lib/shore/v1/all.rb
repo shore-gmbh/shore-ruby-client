@@ -19,5 +19,9 @@ require_relative 'participant'
 # Newsletter Service
 require_relative 'newsletter'
 
+# Payment Service
+require_relative 'charge'
+require_relative 'stripe_payment'
+
 # Communication Service
 require_relative 'sms_limit'
