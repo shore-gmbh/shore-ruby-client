@@ -9,6 +9,9 @@ module Shore
       has_one :sender
 
       property :created_at, type: :time
+
+      # PATCH /messages/:id/read
+      custom_endpoint :read, on: :member, request_method: :patch
     end
   end
 end
