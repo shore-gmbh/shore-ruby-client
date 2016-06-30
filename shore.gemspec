@@ -38,6 +38,7 @@ pushes.'
   # Note: this library is undergoing active development. Please update often!
   # https://github.com/chingor13/json_api_client
   spec.add_runtime_dependency 'json_api_client', '>= 1.1.1'
+  spec.add_runtime_dependency 'dotenv', '~> 2.1'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
