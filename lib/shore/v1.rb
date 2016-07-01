@@ -1,6 +1,13 @@
+APP_ENV = ENV['RAILS_ENV'] || ENV['RACK_ENV']
+
 require 'active_support/all'
+
 require 'dotenv'
-Dotenv.load if defined? Dotenv
+Dotenv.load(
+  File.expand_path("../.env.#{APP_ENV}", __FILE__),
+  File.expand_path("../.env",  __FILE__)
+)
+
 require_relative 'version'
 require_relative 'authorization'
 require_relative 'v1/all'
