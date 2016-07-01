@@ -32,13 +32,13 @@ pushes.'
 
   # TODO@am: Move shore/tokens to a server-side gem and remove this dependency.
   spec.add_runtime_dependency 'jwt', '~> 1'
-  spec.add_runtime_dependency 'activesupport', '>= 3'
+  spec.add_runtime_dependency 'activesupport', '>= 3','< 5'
   # Clients for http://jsonapi.org/ compatible API's can mostly be generated
   # at runtime.
   # Note: this library is undergoing active development. Please update often!
   # https://github.com/chingor13/json_api_client
-  spec.add_runtime_dependency 'json_api_client', '>= 1.1.1'
-  spec.add_runtime_dependency 'dotenv', '~> 2.1'
+  spec.add_runtime_dependency 'json_api_client', '~> 1'
+  spec.add_runtime_dependency 'dotenv', '>= 2'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
@@ -47,7 +47,7 @@ pushes.'
   spec.add_development_dependency 'rubocop', '~> 0.35.1'
   spec.add_development_dependency 'pry-byebug', '~> 3.3.0'
   spec.add_development_dependency 'simplecov', '~> 0.11.1'
-  spec.add_development_dependency 'timecop'
-  spec.add_development_dependency 'coveralls'
-  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'timecop', '~> 0.8'
+  spec.add_development_dependency 'coveralls', '~> 0.8'
+  spec.add_development_dependency 'webmock', '~> 2.1'
 end
