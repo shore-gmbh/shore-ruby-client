@@ -30,9 +30,16 @@ pushes.'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  ruby_major, ruby_minor, _ = RUBY_VERSION.split('.').map(&:to_i)
+
+  if ruby_major >= 2 && ruby_minor >= 2
+    spec.add_runtime_dependency 'activesupport', '>= 3'
+  else
+    spec.add_runtime_dependency 'activesupport', '>= 3', '< 5'
+  end
+
   # TODO@am: Move shore/tokens to a server-side gem and remove this dependency.
   spec.add_runtime_dependency 'jwt', '~> 1'
-  spec.add_runtime_dependency 'activesupport', '>= 3','< 5'
   # Clients for http://jsonapi.org/ compatible API's can mostly be generated
   # at runtime.
   # Note: this library is undergoing active development. Please update often!
