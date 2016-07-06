@@ -1,8 +1,7 @@
-require_relative 'communication_base'
-
 module Shore
   module V1
-    class SMSLimit < CommunicationBase
+    # @see https://docs.shore.com/v1/#charges
+    class SMSLimit < ClientBase
     end
   end
 end
