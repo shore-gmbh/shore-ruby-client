@@ -1,10 +1,7 @@
-require_relative 'messaging_base'
-
 module Shore
   module V1
-    # TODO@am: Add `@see` link to public api documentation
-    # TODO@am: Use base class `ClientBase` as soon as requestable via gateway
-    class Conversation < MessagingBase # :nodoc:
+    # @see https://docs.shore.com/v1/#conversations
+    class Conversation < ClientBase
       has_one :merchant
       has_one :last_message
       has_many :participants

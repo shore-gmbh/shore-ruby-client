@@ -30,7 +30,7 @@ pushes.'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  ruby_major, ruby_minor, _ = RUBY_VERSION.split('.').map(&:to_i)
+  ruby_major, ruby_minor, _ruby_patch = RUBY_VERSION.split('.').map(&:to_i)
 
   if ruby_major >= 2 && ruby_minor >= 2
     spec.add_runtime_dependency 'activesupport', '>= 3'

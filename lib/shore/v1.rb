@@ -5,7 +5,7 @@ require 'active_support/all'
 require 'dotenv'
 Dotenv.load(
   File.expand_path("../.env.#{APP_ENV}", __FILE__),
-  File.expand_path("../.env",  __FILE__)
+  File.expand_path('../.env', __FILE__)
 )
 
 require_relative 'version'
