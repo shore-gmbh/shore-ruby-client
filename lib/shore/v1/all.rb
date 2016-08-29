@@ -7,6 +7,7 @@ require_relative 'merchant'
 require_relative 'merchant_account'
 require_relative 'resource'
 require_relative 'service'
+require_relative 'short_url'
 
 # Customer Service
 require_relative 'customer'
