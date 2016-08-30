@@ -8,6 +8,7 @@ module Shore
       # from_urlsafe("uUtUi3QLle6IvU1oOYIezg")
       # => "b94b548b-740b-95ee-88bd-4d6839821ece"
       def from_urlsafe(url)
+        return if url.blank?
         url = url.tr('_', '/').tr('-', '+')
         url.unpack('m').first.unpack(UUID_FORMAT).join('-')
       end
@@ -16,6 +17,7 @@ module Shore
       # to_urlsafe('b94b548b-740b-95ee-88bd-4d6839821ece')
       # => "uUtUi3QLle6IvU1oOYIezg"
       def to_urlsafe(uuid)
+        return if uuid.blank?
         bytestring = uuid.split('-').pack(UUID_FORMAT)
         Base64.urlsafe_encode64(bytestring).tr('=', '')
       end
