@@ -5,7 +5,7 @@ module Shore
     module V1
       class MerchantAccount # :nodoc:
         TYPE = 'ma'.freeze
-        attr_reader :id, :type, :name, :version
+        attr_reader :id, :type, :name, :version, :organization_id
 
         # Builds a hash where the Merchant UUID is the key and the Role is the
         # value.
@@ -59,6 +59,7 @@ module Shore
           @type = TYPE
           @version = 1
           @roles = {}
+          @organization_id = attributes[:organization_id]
 
           @roles[:owner] = build_uuids(attributes[:owner] || [])
           @roles[:admin] = build_uuids(attributes[:admin] || [])
@@ -125,6 +126,7 @@ module Shore
         #   version: 1,
         #   data: {
         #     name: 'name',
+        #     organization_id: organization_id<uuid>
         #     owner: [uuids],
         #     member: [uuids],
         #     admin: [uuids],
@@ -135,6 +137,7 @@ module Shore
         def as_json
           {
             name: name,
+            organization_id: organization_id,
             owner: urlsafe_uuids(owners),
             member: urlsafe_uuids(members),
             admin: urlsafe_uuids(admins)
