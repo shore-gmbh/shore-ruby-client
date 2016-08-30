@@ -18,7 +18,7 @@ RSpec.describe Shore::Tokens::V1::MerchantAccount do
         type: 'ma',
         data: {
           name: name,
-          organization_id: organization_id,
+          organization_id: urlsafe_uuid(organization_id),
           admin: [urlsafe_uuid(admin[:id])],
           owner: [urlsafe_uuid(owner[:id])],
           member: [urlsafe_uuid(member[:id])]
@@ -35,6 +35,7 @@ RSpec.describe Shore::Tokens::V1::MerchantAccount do
       expect(result.version).to eq(1)
       expect(result.id).to eq(id)
       expect(result.name).to eq(name)
+      expect(result.organization_id).to eq(organization_id)
     end
   end
 
@@ -54,7 +55,7 @@ RSpec.describe Shore::Tokens::V1::MerchantAccount do
     it 'builds a proper jwt payload' do
       expect(subject).to match(
         name: name,
-        organization_id: organization_id,
+        organization_id: urlsafe_uuid(organization_id),
         owner: [urlsafe_uuid(owner[:id])],
         admin: [urlsafe_uuid(admin[:id])],
         member: [urlsafe_uuid(member[:id])]

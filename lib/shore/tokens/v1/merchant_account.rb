@@ -137,7 +137,7 @@ module Shore
         def as_json
           {
             name: name,
-            organization_id: organization_id,
+            organization_id: Shore::Tokens::UUID.to_urlsafe(organization_id),
             owner: urlsafe_uuids(owners),
             member: urlsafe_uuids(members),
             admin: urlsafe_uuids(admins)
@@ -148,6 +148,9 @@ module Shore
           data = payload.with_indifferent_access
           type = data.try(:[], 'type')
           fail "Incorrect type: '#{type}'" if type != TYPE
+
+          data['data']['organization_id'] =
+            Shore::Tokens::UUID.from_urlsafe(data['data']['organization_id'])
 
           new(data['id'], data['data'])
         end
