@@ -29,23 +29,6 @@ $ gem install shore
 
 ## Usage
 
-* Parse Authentication Header
-
-```ruby
-require 'shore'
-Shore::Tokens::AccessToken.parse_auth_header(
-  auth_header,
-  public_key: ENV['SHORE_JWT_PUBLIC_KEY'],
-  algorithm: ENV['SHORE_JWT_ALGORITHM'])
-```
-
-* Authentication Header format validation
-
-```ruby
-require 'shore'
-Shore::Tokens::AccessToken.valid_format?(auth_header)
-```
-
 ## Development
 
 * Install dependencies

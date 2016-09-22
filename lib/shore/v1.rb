@@ -27,6 +27,3 @@ module Shore
     end
   end
 end
-
-# TODO@am: Move this to a server-side gem. It doesn't belong here in the client.
-require 'shore/tokens/access_token'
