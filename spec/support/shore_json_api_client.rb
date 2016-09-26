@@ -1,6 +1,6 @@
 # @example
 #   RSpec.describe MyClass do
-#     include_examples 'v1 request setup' do
+#     include_examples 'shore json api client' do
 #       let(:site) { 'https://api.shore.com/v1' }
 #     end
 #   end

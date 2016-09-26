@@ -12,7 +12,7 @@ Ruby client gem for the Shore APIs
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'shore', github: 'shore-gmbh/shore-ruby-client', require: 'shore/v1'
+gem 'shore', github: 'shore-gmbh/shore-ruby-client'
 ```
 
 And then execute:
