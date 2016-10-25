@@ -14,6 +14,7 @@ require_relative 'shore/authorization'
 # Require all of the client classes
 require_relative 'shore/appointment'
 require_relative 'shore/conversation'
+require_relative 'shore/feedback'
 require_relative 'shore/charge'
 require_relative 'shore/customer'
 require_relative 'shore/merchant'
