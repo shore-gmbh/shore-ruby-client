@@ -13,10 +13,10 @@ require_relative 'shore/authorization'
 
 require_relative 'shore/versions_manager'
 
-Shore::VersionsManager.load_version(:v1)
-Shore::VersionsManager.load_version(:v2)
+Shore::VersionsManager.instance.load_version(:v1)
+Shore::VersionsManager.instance.load_version(:v2)
 
-Shore::VersionsManager.set_default_api_version(:v1)
+Shore::VersionsManager.instance.set_default_api_version(:v1)
 
 # Only after all of the clients have been registered, create the factory for
 # this version.
