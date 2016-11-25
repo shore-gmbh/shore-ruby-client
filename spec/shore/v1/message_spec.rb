@@ -1,4 +1,4 @@
-RSpec.describe Shore::Message do
+RSpec.describe Shore::V1::Message do
   include_examples 'shore json api client' do
     let(:url) { 'https://api.shore.com/v1/messages' }
   end
