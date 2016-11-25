@@ -1,6 +1,6 @@
 RSpec.describe Shore::Message do
   include_examples 'shore json api client' do
-    let(:site) { 'https://api.shore.com/v1' }
+    let(:url) { 'https://api.shore.com/v1/messages' }
   end
 
   describe '.read' do
