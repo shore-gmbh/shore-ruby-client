@@ -31,12 +31,8 @@ module Shore
     # @params type [String] valid json:api type
     # @returns [Class] client class for the given type
     # @raises [ArgumentError] if type doesn't map to any known client class
-    def client_class(type)
-      if (klass = CLIENT_TYPES[type.to_s])
-        return klass
-      end
-
-      fail ArgumentError, "[Shore] Error: Unknown client type: '#{type}'"
+    def client_class(type, version: default_shore_api_version)
+      Shore::VersionsManager.instance.class_for(type: type, version: version)
     end
 
     # @note This method DOES NOT make any network requests. The initialized
@@ -51,6 +47,10 @@ module Shore
     # @raises [ArgumentError] if type doesn't map to any known client class
     def client(type:, id:)
       client_class(type).new(id: id)
+    end
+
+    def default_shore_api_version
+      Shore::VersionsManager.instance.default_version
     end
   end
 end

@@ -28,6 +28,10 @@ module Shore
       default_namespace.version_name
     end
 
+    def class_for(type:, version: default_version)
+      versions_map[version].class_for_type(type)
+    end
+
     private
 
     def require_version_files(version_name)
@@ -44,6 +48,12 @@ module Shore
 
     def initialize(params)
       @version_name = params.fetch(:version_name)
+    end
+
+    def class_for_type(type)
+      constants.find(non_existent_type(type)) do |constant|
+        constant.table_name == type.to_s
+      end
     end
 
     def constants
@@ -108,6 +118,10 @@ module Shore
 
     def is_a_client?(constant)
       namespaced_constant(constant).respond_to?(:site)
+    end
+
+    def non_existent_type(type)
+      -> { fail ArgumentError, "[Shore] Error: Unknown client type: '#{type}'" }
     end
   end
 end
