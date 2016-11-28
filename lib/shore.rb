@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-fail "You must require a specific API version (e.g. `require 'shore/v1'`)"
-=======
 APP_ENV = ENV['RAILS_ENV'] || ENV['RACK_ENV']
 
 require 'active_support/all'
@@ -25,5 +22,5 @@ Shore::VersionsManager.instance.set_default_api_version(:v1)
 # this version.
 require_relative 'shore/client_factory'
 
-
->>>>>>> 7e51502... Merge pull request #25 in SHORE/shore-ruby-client from feature/XDC-458-implement-support-for-v2-on-shore-ruby-client to master
+# TODO@am: Move this to a server-side gem. It doesn't belong here in the client.
+require 'shore/tokens/access_token'
