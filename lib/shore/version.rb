@@ -1,3 +1,3 @@
 module Shore # :nodoc:
-  VERSION = '0.11.3'.freeze
+  VERSION = '1.0.1'.freeze
 end
