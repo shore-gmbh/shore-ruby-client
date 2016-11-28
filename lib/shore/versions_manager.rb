@@ -1,5 +1,5 @@
 module Shore
-  class VersionsManager
+  class VersionsManager # :nodoc:
     include Singleton
 
     attr_reader :versions_map, :default_namespace
@@ -17,8 +17,9 @@ module Shore
       ).freeze
     end
 
-    def set_default_api_version(version_name)
-      raise 'Not allowed to override default version' unless default_namespace.nil?
+    def default_api_version=(version_name)
+      fail 'Not allowed to override default version' unless
+        default_namespace.nil?
 
       @default_namespace = versions_map[version_name]
       default_namespace.become_root
@@ -43,7 +44,7 @@ module Shore
     end
   end
 
-  class VersionNamespace
+  class VersionNamespace # :nodoc:
     attr_reader :version_name
 
     def initialize(params)
@@ -93,7 +94,7 @@ module Shore
     end
 
     def find_nested_constants(constant)
-      return constant if is_a_client?(constant)
+      return constant if client?(constant)
 
       namespaced_constant(constant).constants.map do |child|
         find_nested_constants("#{constant}::#{child}")
@@ -107,7 +108,7 @@ module Shore
     def root_constant
       Object.const_get(root_namespace)
     end
-    
+
     def root_namespace
       "Shore::#{version_name.to_s.upcase}"
     end
@@ -116,7 +117,7 @@ module Shore
       Object.const_get("#{root_constant}::#{const_path}")
     end
 
-    def is_a_client?(constant)
+    def client?(constant)
       namespaced_constant(constant).respond_to?(:site)
     end
 

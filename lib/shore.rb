@@ -16,10 +16,8 @@ require_relative 'shore/versions_manager'
 Shore::VersionsManager.instance.load_version(:v1)
 Shore::VersionsManager.instance.load_version(:v2)
 
-Shore::VersionsManager.instance.set_default_api_version(:v1)
+Shore::VersionsManager.instance.default_api_version = :v1
 
 # Only after all of the clients have been registered, create the factory for
 # this version.
 require_relative 'shore/client_factory'
-
-
