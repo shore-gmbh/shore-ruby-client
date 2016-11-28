@@ -1,8 +1,8 @@
 require_relative 'client_base'
 
 module Shore
-  module V1
-    # @see https://docs.shore.com/v1/#customers
+  module V2
+    # @see https://docs.shore.com/v2/#customers
     class Customer < ClientBase
     end
   end

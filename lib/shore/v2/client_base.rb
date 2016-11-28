@@ -2,7 +2,7 @@ require 'json_api_client'
 require 'shore/json_api_client'
 
 module Shore
-  module V1
+  module V2
     # Base class for all Shore client resource classes.
     # @abstract
     class ClientBase < JsonApiClient::Resource
@@ -11,7 +11,7 @@ module Shore
       include Shore::JsonApiClientExt::VersionableApi
       include Shore::JsonApiClientExt::CustomEndpoints
 
-      self.site = base_url(:v1)
+      self.site = base_url(:v2)
 
       connection do |connection|
         connection.use Shore::JsonApiClientExt::AuthorizationMiddleware

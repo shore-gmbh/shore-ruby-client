@@ -5,15 +5,11 @@
 #     end
 #   end
 RSpec.shared_examples 'shore json api client' do
-  it 'has correct site url' do
-    expect(described_class.site).to eq(site)
-  end
-
   describe '.url' do
     context 'without params' do
       subject { described_class.url }
 
-      it { is_expected.to eq(site + '/' + described_class.table_name) }
+      it { is_expected.to eq(url) }
     end
   end
 

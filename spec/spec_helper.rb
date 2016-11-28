@@ -6,7 +6,7 @@ if ENV['COVERAGE']
 end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'shore/v1'
+require 'shore'
 require 'pry'
 
 # Load support files
