@@ -9,7 +9,7 @@ module Shore
       # PATCH /v1/employees/:id/confirm?confirmation_token=:confirmation_token
       custom_endpoint :confirm, on: :member, request_method: :patch
       # PATCH /v1/employees/:id/resend
-      custom_endpoint :confirm, on: :member, request_method: :patch
+      custom_endpoint :resend, on: :member, request_method: :patch
     end
   end
 end
