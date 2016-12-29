@@ -1,4 +1,4 @@
-require 'client_base'
+require_relative 'client_base'
 
 module Shore
   module V2
