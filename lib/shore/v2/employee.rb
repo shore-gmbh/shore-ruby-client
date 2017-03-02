@@ -5,6 +5,7 @@ module Shore
     # @see https://docs.shore.com/v2/#employee
     class Employee < ClientBase
       has_one :organization
+      has_many :merchants
 
       # PATCH /v1/employees/:id/actions/confirm
       #   ?confirmation_token=:confirmation_token
