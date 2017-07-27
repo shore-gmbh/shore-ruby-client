@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @example
 #   RSpec.describe MyClass do
 #     include_examples 'shore json api client' do

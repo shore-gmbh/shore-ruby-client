@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore # :nodoc:
   def with_authorization(authorization)
     self.authorization = authorization

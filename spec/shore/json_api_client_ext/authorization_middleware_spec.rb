@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Shore::JsonApiClientExt::AuthorizationMiddleware do
   def auth_header(env)
     env[:request_headers]['Authorization']

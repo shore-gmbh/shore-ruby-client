@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 APP_ENV = ENV['RAILS_ENV'] || ENV['RACK_ENV']
 
 require 'active_support/all'

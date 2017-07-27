@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json_api_client'
 require 'shore/json_api_client'
 
