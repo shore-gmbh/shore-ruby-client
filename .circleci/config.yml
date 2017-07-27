@@ -44,13 +44,15 @@ jobs:
           name: run tests
           command: |
             mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            # This line was causing the following error so I commented it out. (AM)
+            # "bundler: failed to load command: rspec (/home/circleci/repo/vendor/bundle/ruby/2.3.0/bin/rspec)"
+            # TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
             bundle exec rspec --format progress \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
-                            "${TEST_FILES}"
+                            # "${TEST_FILES}"
 
       # collect reports
       - store_test_results:
