@@ -1,7 +1,9 @@
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - '.git-hooks/**/*'
     - 'bin/**/*'
+    - 'vendor/**/*'
 Style/FileName:
   Description: 'Use snake_case for source file names.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#snake-case-files'
