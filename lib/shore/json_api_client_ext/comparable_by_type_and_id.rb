@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   module JsonApiClientExt
     # Two objects are equal if their {#type} and {#id} are the same.
@@ -9,14 +11,14 @@ module Shore
 
       def <=>(other)
         return nil unless other.respond_to?(:type) && other.respond_to?(:id)
-        if (result = (type <=> other.type)) == 0
+        if (result = (type <=> other.type)).zero?
           return id <=> other.id
         end
 
         result
       end
 
-      alias_method :eql?, :==
+      alias eql? ==
 
       def hash
         [type, id].hash

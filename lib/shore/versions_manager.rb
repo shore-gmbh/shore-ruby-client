@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   class VersionsManager # :nodoc:
     include Singleton
@@ -18,7 +20,7 @@ module Shore
     end
 
     def default_api_version=(version_name)
-      fail 'Not allowed to override default version' unless
+      raise 'Not allowed to override default version' unless
         default_namespace.nil?
 
       @default_namespace = versions_map[version_name]
@@ -81,7 +83,7 @@ module Shore
     private
 
     def nested_constant(path, base)
-      return base if path.size == 0
+      return base if path.empty?
       return module_for(path.first, add: base) if path.size == 1
 
       nested_constant(path[1..-1], base)
@@ -122,7 +124,7 @@ module Shore
     end
 
     def non_existent_type(type)
-      -> { fail ArgumentError, "[Shore] Error: Unknown client type: '#{type}'" }
+      -> { raise ArgumentError, "[Shore] Error: Unknown type: '#{type}'" }
     end
   end
 end

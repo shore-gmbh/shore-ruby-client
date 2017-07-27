@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   # @example Constants
   #   class MyClass
@@ -15,8 +17,8 @@ module Shore
     # (a.k.a. table_name).
     CLIENT_TYPES = Hash[
       parent.constants.map { |name| parent.const_get(name) }
-      .select { |klass| klass.respond_to?(:table_name) }
-      .map { |klass| [klass.table_name, klass] }
+            .select { |klass| klass.respond_to?(:table_name) }
+            .map { |klass| [klass.table_name, klass] }
     ].freeze
     private_constant :CLIENT_TYPES
 

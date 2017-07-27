@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   module JsonApiClientExt
     # Adds {url} method to the class.

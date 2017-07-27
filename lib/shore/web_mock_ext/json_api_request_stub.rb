@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   module WebMockExt
     # Adds json:api helpers
@@ -27,7 +29,7 @@ module Shore
         elsif errors
           { errors: errors }.to_json
         else
-          fail 'Error: either :data or :errors must be given!'
+          raise 'Error: either :data or :errors must be given!'
         end
       end
 

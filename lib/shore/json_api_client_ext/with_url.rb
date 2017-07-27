@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shore
   module JsonApiClientExt
     # Adds {url} method to the class.
@@ -33,7 +35,7 @@ module Shore
         def convert_filter_value(value)
           if value.is_a?(Array)
             value.map { |item| item.respond_to?(:id) ? item.id : item.to_s }
-              .join(',')
+                 .join(',')
           else
             value.respond_to?(:id) ? value.id : value.to_s
           end

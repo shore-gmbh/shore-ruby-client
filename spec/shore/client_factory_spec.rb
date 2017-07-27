@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientFactoryChild
   include Shore::ClientFactory
 end

@@ -1,4 +1,6 @@
 # coding: utf-8
+# frozen_string_literal: true
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'shore/version'
@@ -7,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'shore'
   spec.version       = Shore::VERSION
   spec.authors       = ['Austin Moore', 'Konstantin Delchev']
-  spec.email         = %w(it@shore.com)
+  spec.email         = %w[it@shore.com]
 
   spec.summary       = 'Shore Ruby Client'
   spec.description   = 'Ruby client gem for the Shore APIs.'
@@ -20,11 +22,12 @@ Gem::Specification.new do |spec|
     # TODO: Set to 'http://mygemserver.com'
     spec.metadata['allowed_push_host'] = ''
   else
-    fail 'RubyGems 2.0 or newer is required to protect against public gem\
+    raise 'RubyGems 2.0 or newer is required to protect against public gem\
 pushes.'
   end
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = `git ls-files -z`
+                       .split("\x0")
                        .reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
@@ -48,8 +51,9 @@ pushes.'
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.4.0'
+  spec.add_development_dependency 'rspec_junit_formatter', '~> 0.2'
   spec.add_development_dependency 'overcommit', '~> 0.29.1'
-  spec.add_development_dependency 'rubocop', '~> 0.35.1'
+  spec.add_development_dependency 'rubocop', '~> 0.49'
   spec.add_development_dependency 'pry-byebug', '~> 3.3.0'
   spec.add_development_dependency 'simplecov', '~> 0.11.1'
   spec.add_development_dependency 'timecop', '~> 0.8'
