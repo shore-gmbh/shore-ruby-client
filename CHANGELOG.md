@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.0.10](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.8...v1.0.9)
+### Changed
+- Order - new resource, no further action needed
+- Payment - new resource, no further action needed
+
 ## [v1.0.9](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.8...v1.0.9)
 ### Changed
 - Remove GitFlow
