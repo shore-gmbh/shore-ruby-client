@@ -25,7 +25,7 @@ module Shore
     included do
       # Create a constant for each resource type (e.g.
       # APPOINTMENTS # => 'appointments').
-      CLIENT_TYPES.keys.each do |type|
+      CLIENT_TYPES.each_key do |type|
         const_set(type.upcase, type.freeze)
       end
     end
