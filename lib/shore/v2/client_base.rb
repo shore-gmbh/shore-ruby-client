@@ -8,10 +8,11 @@ module Shore
     # Base class for all Shore client resource classes.
     # @abstract
     class ClientBase < JsonApiClient::Resource
+      include Shore::JsonApiClientExt::BuildRelationships
       include Shore::JsonApiClientExt::ComparableByTypeAndId
-      include Shore::JsonApiClientExt::WithUrl
-      include Shore::JsonApiClientExt::VersionableApi
       include Shore::JsonApiClientExt::CustomEndpoints
+      include Shore::JsonApiClientExt::VersionableApi
+      include Shore::JsonApiClientExt::WithUrl
 
       self.site = base_url(:v2)
 
