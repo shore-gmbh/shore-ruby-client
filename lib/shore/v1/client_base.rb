@@ -12,6 +12,7 @@ module Shore
       include Shore::JsonApiClientExt::WithUrl
       include Shore::JsonApiClientExt::VersionableApi
       include Shore::JsonApiClientExt::CustomEndpoints
+      include Shore::JsonApiClientExt::WithMeta
 
       self.site = base_url(:v1)
 

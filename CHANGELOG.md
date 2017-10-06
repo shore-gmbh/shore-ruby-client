@@ -2,6 +2,10 @@
 
 ## [v1.0.11](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.10...v1.0.11)
 ### Changed
+- Add `#with_meta` to `ClientBase`
+
+## [v1.0.11](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.10...v1.0.11)
+### Changed
 - Add `#build_relationships` to `ClientBase`
 
 ## [v1.0.10](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.9...v1.0.10)
