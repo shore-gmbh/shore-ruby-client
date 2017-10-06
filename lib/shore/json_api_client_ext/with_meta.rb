@@ -16,7 +16,7 @@ module Shore
     module WithMeta
       extend ActiveSupport::Concern
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def with_meta(meta)
           @custom_meta = meta
           yield
