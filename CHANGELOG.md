@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.15](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.14...v1.0.15)
+### Changed
+- Customer - add custom action unsubscribe 
+
 ## [v1.0.14](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.13...v1.0.14)
 ### Changed
 - AppointmentGroup - new resource, no further action needed
