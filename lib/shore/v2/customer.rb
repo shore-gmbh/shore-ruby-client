@@ -8,6 +8,9 @@ module Shore
     class Customer < ClientBase
       custom_endpoint 'actions/unsubscribe',
                       on: :member, request_method: :post
+
+      custom_endpoint 'actions/request_double_optin',
+                      on: :collection, request_method: :post
     end
   end
 end
