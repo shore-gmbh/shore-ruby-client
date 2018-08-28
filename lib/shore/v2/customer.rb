@@ -9,6 +9,9 @@ module Shore
       custom_endpoint 'actions/unsubscribe',
                       on: :member, request_method: :post
 
+      custom_endpoint 'actions/opted_in',
+                      on: :member, request_method: :post
+
       custom_endpoint 'actions/request_double_optin',
                       on: :collection, request_method: :post
     end
