@@ -4,10 +4,11 @@ module Shore # :nodoc:
   module_function
 
   def with_authorization(authorization)
+    initial_value = self.authorization
     self.authorization = authorization
     yield
   ensure
-    self.authorization = nil
+    self.authorization = initial_value
   end
 
   # @see with_authorization
