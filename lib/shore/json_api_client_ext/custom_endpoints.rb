@@ -24,7 +24,7 @@ module Shore
         # @see JsonApiClient::Resource.collection_endpoint
         def collection_endpoint(name, options = {})
           metaclass = class << self
-            self
+                        self
           end
           metaclass.instance_eval do
             define_method(options.fetch(:name)) do |*params|
