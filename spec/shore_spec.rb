@@ -8,11 +8,23 @@ RSpec.describe Shore do
   describe '.with_authorization' do
     let(:auth_header) { 'Bearer abcde.fghij.jlmnoi' }
 
+    after { Shore.authorization = nil }
+
     it 'sets the auth header thread locally for the duration of the block' do
       Shore.with_authorization(auth_header) do
         expect(Shore.authorization).to eq(auth_header)
       end
       expect(Shore.authorization).to be_nil
+    end
+
+    it 'keeps the initial auth header after the block call' do
+      Shore.authorization = 'Bearer old.token'
+
+      Shore.with_authorization(auth_header) do
+        expect(Shore.authorization).to eq(auth_header)
+      end
+
+      expect(Shore.authorization).to eq('Bearer old.token')
     end
   end
 end
