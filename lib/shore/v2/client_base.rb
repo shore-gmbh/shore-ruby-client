@@ -2,6 +2,7 @@
 
 require 'json_api_client'
 require 'shore/json_api_client'
+require 'shore/custom/paginator'
 
 module Shore
   module V2
@@ -16,6 +17,7 @@ module Shore
       include Shore::JsonApiClientExt::WithUrl
 
       self.site = base_url(:v2)
+      self.paginator = Shore::Custom::Paginator
 
       connection do |connection|
         connection.use Shore::JsonApiClientExt::AuthorizationMiddleware
