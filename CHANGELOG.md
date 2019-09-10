@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.3.0](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.2.0...v1.3.0)
+### Changed
+- Update dependencies
+- Delete old ruby versions
+
 ## [v1.0.11](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.10...v1.0.11)
 ### Changed
 - Add `#with_meta` to `ClientBase`
