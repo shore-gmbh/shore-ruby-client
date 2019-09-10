@@ -5,7 +5,19 @@
 - Update dependencies
 - Delete old ruby versions
 
-## [v1.0.11](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.10...v1.0.11)
+## [v1.0.15](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.14...v1.0.15)
+### Changed
+- Customer - add custom action unsubscribe
+
+## [v1.0.14](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.13...v1.0.14)
+### Changed
+- AppointmentGroup - new resource, no further action needed
+
+## [v1.0.13](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.12...v1.0.13)
+### Changed
+- Update Rubocop version
+
+## [v1.0.12](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.11...v1.0.12)
 ### Changed
 - Add `#with_meta` to `ClientBase`
 

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 module Shore # :nodoc:
+  module_function
+
   def with_authorization(authorization)
+    initial_value = self.authorization
     self.authorization = authorization
     yield
   ensure
-    self.authorization = nil
+    self.authorization = initial_value
   end
 
   # @see with_authorization
@@ -16,6 +19,4 @@ module Shore # :nodoc:
   def authorization
     Thread.current[:shore_client_current_authorization]
   end
-
-  module_function :with_authorization, :authorization=, :authorization
 end

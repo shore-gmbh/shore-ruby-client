@@ -15,7 +15,7 @@ module Shore
 
       module ClassMethods # :nodoc:
         def base_url(version)
-          base_uri = ENV['SHORE_API_BASE_URI']
+          base_uri = ENV['SHORE_API_INTERNAL_BASE_URI']
           base_uri = DEFAULT_BASE_URI if base_uri.blank?
 
           uri = URI(base_uri)

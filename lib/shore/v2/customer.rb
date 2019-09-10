@@ -6,6 +6,17 @@ module Shore
   module V2
     # @see https://docs.shore.com/v2/#customers
     class Customer < ClientBase
+      custom_endpoint 'actions/unsubscribe',
+                      on: :member, request_method: :post
+
+      custom_endpoint 'actions/request_subscription',
+                      on: :member, request_method: :post
+
+      custom_endpoint 'actions/opted_in',
+                      on: :collection, request_method: :post
+
+      custom_endpoint 'actions/request_double_optin',
+                      on: :collection, request_method: :post
     end
   end
 end
