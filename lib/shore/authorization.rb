@@ -7,16 +7,15 @@ module Shore # :nodoc:
   ensure
     self.authorization = nil
   end
-  module_function :with_authorization
 
   # @see with_authorization
   def authorization=(value)
     Thread.current[:shore_client_current_authorization] = value
   end
-  module_function :authorization=
 
   def authorization
     Thread.current[:shore_client_current_authorization]
   end
-  module_function :authorization
+
+  module_function :with_authorization, :authorization=, :authorization
 end
