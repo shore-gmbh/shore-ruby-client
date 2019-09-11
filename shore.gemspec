@@ -32,30 +32,22 @@ pushes.'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  ruby_major, ruby_minor, _ruby_patch = RUBY_VERSION.split('.').map(&:to_i)
-
-  if ruby_major >= 2 && ruby_minor >= 2
-    spec.add_runtime_dependency 'activesupport', '>= 3'
-  else
-    spec.add_runtime_dependency 'activesupport', '>= 3', '< 5'
-  end
+  spec.required_ruby_version = ['>= 2.5.0', '< 2.7.0']
+  spec.add_runtime_dependency 'activesupport', '>= 4'
 
   # Clients for http://jsonapi.org/ compatible API's can mostly be generated
   # at runtime.
   # Note: this library is undergoing active development. Please update often!
   # https://github.com/chingor13/json_api_client
-  spec.add_runtime_dependency 'dotenv', '>= 2'
-  spec.add_runtime_dependency 'json_api_client', '>= 1.5', '< 1.6'
-
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'coveralls', '~> 0.8'
-  spec.add_development_dependency 'overcommit', '~> 0.29.1'
-  spec.add_development_dependency 'pry-byebug', '~> 3.3.0'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.4.0'
-  spec.add_development_dependency 'rspec_junit_formatter', '~> 0.2'
-  spec.add_development_dependency 'rubocop', '~> 0.56'
-  spec.add_development_dependency 'simplecov', '~> 0.11.1'
-  spec.add_development_dependency 'timecop', '~> 0.8'
-  spec.add_development_dependency 'webmock', '~> 2.1'
+  spec.add_development_dependency 'pry-byebug', '~> 3.7'
+  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rspec', '~> 3.8'
+  spec.add_development_dependency 'rubocop', '~> 0.49'
+  spec.add_development_dependency 'simplecov', '~> 0.16'
+  spec.add_development_dependency 'timecop', '~> 0.9'
+  spec.add_development_dependency 'webmock', '~> 3.7'
+  spec.add_runtime_dependency 'dotenv', '>= 2'
+  spec.add_runtime_dependency 'json_api_client', '~> 1'
 end

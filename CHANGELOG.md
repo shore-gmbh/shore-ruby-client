@@ -1,8 +1,13 @@
 # Changelog
 
+## [v1.3.0](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.2.0...v1.3.0)
+### Changed
+- Update dependencies
+- Delete old ruby versions
+
 ## [v1.0.15](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.14...v1.0.15)
 ### Changed
-- Customer - add custom action unsubscribe 
+- Customer - add custom action unsubscribe
 
 ## [v1.0.14](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.0.13...v1.0.14)
 ### Changed
