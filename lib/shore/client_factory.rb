@@ -13,12 +13,18 @@ module Shore
   module ClientFactory
     extend ActiveSupport::Concern
 
+    unless respond_to?(:module_parent)
+      def self.module_parent
+        parent
+      end
+    end
+
     # Add all of the client classes to a hash keyed to their type
     # (a.k.a. table_name).
     CLIENT_TYPES = Hash[
-      parent.constants.map { |name| parent.const_get(name) }
-            .select { |klass| klass.respond_to?(:table_name) }
-            .map { |klass| [klass.table_name, klass] }
+      module_parent.constants.map { |name| module_parent.const_get(name) }
+                   .select { |klass| klass.respond_to?(:table_name) }
+                   .map { |klass| [klass.table_name, klass] }
     ].freeze
     private_constant :CLIENT_TYPES
 
