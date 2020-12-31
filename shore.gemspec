@@ -40,7 +40,7 @@ pushes.'
   # Note: this library is undergoing active development. Please update often!
   # https://github.com/chingor13/json_api_client
   spec.add_development_dependency 'bundler', '~> 1.10'
-  spec.add_development_dependency 'coveralls', '~> 0.8'
+  spec.add_development_dependency 'coveralls', '~> 0.8.23'
   spec.add_development_dependency 'pry-byebug', '~> 3.7'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.8'

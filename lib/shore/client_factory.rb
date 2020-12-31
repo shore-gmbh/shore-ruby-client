@@ -16,9 +16,8 @@ module Shore
     # Add all of the client classes to a hash keyed to their type
     # (a.k.a. table_name).
 
-    parent_module = respond_to?(:module_parent) ? module_parent : parent
     CLIENT_TYPES = Hash[
-      parent_module.constants.map { |name| parent_module.const_get(name) }
+      module_parent.constants.map { |name| module_parent.const_get(name) }
                    .select { |klass| klass.respond_to?(:table_name) }
                    .map { |klass| [klass.table_name, klass] }
     ].freeze
