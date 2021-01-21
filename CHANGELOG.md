@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.4.0](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.3.0...v1.4.0)
+### Changed
+- Fix the tag to latest master
+- Update dependencies
+
 ## [v1.3.0](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.2.0...v1.3.0)
 ### Changed
 - Update dependencies
