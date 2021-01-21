@@ -1,5 +1,6 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  NewCops: disable
+  TargetRubyVersion: 2.5
   Exclude:
     - '.git-hooks/**/*'
     - 'bin/**/*'

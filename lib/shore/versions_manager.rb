@@ -38,7 +38,7 @@ module Shore
     private
 
     def require_version_files(version_name)
-      Dir[version_files(version_name)].each { |file| require(file) }
+      Dir[version_files(version_name)].sort.each { |file| require(file) }
     end
 
     def version_files(version_name)
