@@ -18,8 +18,8 @@ module Shore
     parent_module = respond_to?(:module_parent) ? module_parent : parent
     CLIENT_TYPES = Hash[
       parent_module.constants.map { |name| parent_module.const_get(name) }
-            .select { |klass| klass.respond_to?(:table_name) }
-            .map { |klass| [klass.table_name, klass] }
+                   .select { |klass| klass.respond_to?(:table_name) }
+                   .map { |klass| [klass.table_name, klass] }
     ].freeze
     private_constant :CLIENT_TYPES
 

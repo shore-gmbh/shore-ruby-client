@@ -23,9 +23,7 @@ module Shore
         # @see .custom_endpoint
         # @see JsonApiClient::Resource.collection_endpoint
         def collection_endpoint(name, options = {})
-          metaclass = class << self
-            self
-          end
+          metaclass = class << self; self; end
           metaclass.instance_eval do
             define_method(options.fetch(:name)) do |*params|
               request_params = params.first || {}

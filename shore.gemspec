@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -31,6 +32,7 @@ pushes.'
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.required_ruby_version = ['>= 2.5.0', '< 2.7.0']
 
   ruby_major, ruby_minor, _ruby_patch = RUBY_VERSION.split('.').map(&:to_i)
 
@@ -59,3 +61,5 @@ pushes.'
   spec.add_development_dependency 'timecop', '~> 0.8'
   spec.add_development_dependency 'webmock', '~> 2.1'
 end
+
+# rubocop:enable all
