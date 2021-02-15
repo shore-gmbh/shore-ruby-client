@@ -9,4 +9,3 @@ module Shore
     end
   end
 end
-
