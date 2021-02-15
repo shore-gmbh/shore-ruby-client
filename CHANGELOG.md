@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.4.1](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.4.0...v1.4.1)
+### Changed
+- Add shifts
+
 ## [v1.4.0](https://github.com/shore-gmbh/shore-ruby-client/compare/v1.3.0...v1.4.0)
 ### Changed
 - Fix the tag to latest master
