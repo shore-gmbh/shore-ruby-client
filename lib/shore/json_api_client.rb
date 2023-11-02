@@ -8,6 +8,7 @@ require 'shore/json_api_client_ext/custom_endpoints'
 require 'shore/json_api_client_ext/versionable_api'
 require 'shore/json_api_client_ext/with_meta'
 require 'shore/json_api_client_ext/with_url'
+require 'shore/json_api_client_ext/shore_origin_middleware'
 
 # Add the bulk finder methods (e.g. `find_each`) to all JsonApiClient::Resource
 # instances via the JsonApiClient::Query::Builder.
