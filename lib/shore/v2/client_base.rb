@@ -21,6 +21,7 @@ module Shore
 
       connection do |connection|
         connection.use Shore::JsonApiClientExt::AuthorizationMiddleware
+        connection.use Shore::JsonApiClientExt::ShoreOriginMiddleware
       end
     end
   end
