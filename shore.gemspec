@@ -33,6 +33,7 @@ pushes.'
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.6.0'
+  spec.add_runtime_dependency 'concurrent-ruby', '1.3.4'
   spec.add_runtime_dependency 'activesupport', '>= 6'
 
   # Clients for http://jsonapi.org/ compatible API's can mostly be generated
