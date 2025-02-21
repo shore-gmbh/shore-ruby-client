@@ -32,8 +32,8 @@ pushes.'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.5.0'
-  spec.add_runtime_dependency 'activesupport', '>= 4'
+  spec.required_ruby_version = '>= 2.6.0'
+  spec.add_runtime_dependency 'activesupport', '>= 6'
 
   # Clients for http://jsonapi.org/ compatible API's can mostly be generated
   # at runtime.
@@ -49,5 +49,5 @@ pushes.'
   spec.add_development_dependency 'timecop', '~> 0.9'
   spec.add_development_dependency 'webmock', '~> 3.7'
   spec.add_runtime_dependency 'dotenv', '>= 2'
-  spec.add_runtime_dependency 'json_api_client', '~> 1'
+  spec.add_runtime_dependency 'json_api_client', '~> 1.23.0'
 end
